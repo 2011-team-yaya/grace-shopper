@@ -11,21 +11,24 @@ class AllProducts extends React.Component {
   render() {
     let products = this.props.products
     return (
-      <div>
+      <div className='all' >
         <h1> Products </h1>
         <ul>
           {products.map(product => {
+            let image = `../images/${product.imageURL}`   
             return (
               <li key={product.id}>
                 <div>
                   <p>
-                    <Link to={`/products/${product.id}`} key={product.id}>
-                      {product.image}{' '}
-                    </Link>
+                    <div className='singleProductImage'>
+                      <Link to={`/products/${product.id}`} key={product.id}>
+                        <img src={image} />
+                      </Link>
+                    </div>
                   </p>
                   <p>
                     <Link to={`/products/${product.id}`} key={product.id}>
-                      {product.name}{' '}
+                      {product.name}
                     </Link>
                   </p>
                   <p>{product.price}</p>
