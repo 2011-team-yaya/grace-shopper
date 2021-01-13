@@ -19,3 +19,10 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.singleProductImage img {
+  width: 200px;
+}
+.capDescription {
+  max-width: 200px;
+}
