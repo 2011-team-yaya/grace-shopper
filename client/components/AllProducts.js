@@ -19,28 +19,12 @@ class AllProducts extends React.Component {
               <li key={product.id}>
                 <div>
                   <p>
-                    <Link
-                      to={{
-                        pathname: `/products/${product.id}`,
-                        state: {
-                          product
-                        }
-                      }}
-                      key={product.id}
-                    >
+                    <Link to={`/products/${product.id}`} key={product.id}>
                       {product.image}{' '}
                     </Link>
                   </p>
                   <p>
-                    <Link
-                      to={{
-                        pathname: `/products/${product.id}`,
-                        state: {
-                          product
-                        }
-                      }}
-                      key={product.id}
-                    >
+                    <Link to={`/products/${product.id}`} key={product.id}>
                       {product.name}{' '}
                     </Link>
                   </p>
