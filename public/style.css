@@ -20,6 +20,13 @@ form div {
   display: inline-block;
 }
 
+.singleProductImage img {
+  width: 200px;
+}
+.capDescription {
+  max-width: 200px;
+}
+
 .nav-bar {
   display: flex;
   justify-content: space-between;

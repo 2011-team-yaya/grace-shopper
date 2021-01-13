@@ -31,6 +31,12 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  isLoggedIn: {
+    type: Sequelize.BOOLEAN
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN
   }
 })
 
