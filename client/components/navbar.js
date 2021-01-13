@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="container">
-    <h2>All Caps</h2>
+    <h1>All Caps</h1>
     <nav className="nav-bar">
       {isLoggedIn ? (
         <div>
@@ -23,7 +23,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/products">All Products</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-          <Link to="/signup">Shopping Cart</Link>
         </div>
       )}
     </nav>
