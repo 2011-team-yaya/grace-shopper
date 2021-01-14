@@ -20,6 +20,17 @@ form div {
   display: inline-block;
 }
 
+.all ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.all li {
+  list-style: none;
+  flex: 0 0 33.333333%;
+}
+
 .singleProductImage img {
   width: 200px;
 }
