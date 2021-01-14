@@ -11,16 +11,16 @@ class AllProducts extends React.Component {
   render() {
     let products = this.props.products
     return (
-      <div className='all' >
+      <div className="all">
         <h1> Products </h1>
         <ul>
           {products.map(product => {
-            let image = `../images/${product.imageURL}`   
+            let image = `../images/${product.imageURL}`
             return (
               <li key={product.id}>
                 <div>
                   <p>
-                    <div className='singleProductImage'>
+                    <div className="singleProductImage">
                       <Link to={`/products/${product.id}`} key={product.id}>
                         <img src={image} />
                       </Link>
