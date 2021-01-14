@@ -105,7 +105,7 @@ async function seed() {
     }),
     Product.create({
       name: 'orange',
-      imageURL: 'organge.png',
+      imageURL: 'orange.png',
       quantity: 14,
       description: `Create the perfect accessory by adding your embroidered designs to this classic trucker cap. It has a structured fit with a mesh back, and it's bound to become a favorite for all occasions.
       60% cotton, 40% polyester*
