@@ -30,3 +30,10 @@ form div {
   list-style: none;
   flex: 0 0 33.333333%;
 }
+
+.singleProductImage img {
+  width: 200px;
+}
+.capDescription {
+  max-width: 200px;
+}
