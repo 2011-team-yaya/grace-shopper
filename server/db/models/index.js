@@ -11,6 +11,7 @@ User.hasMany(Order)
 Product.belongsToMany(Order, {
   through: Order_Products
 })
+
 Order.belongsToMany(Product, {
   through: Order_Products
 })
