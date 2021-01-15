@@ -2,14 +2,14 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  id: {
+  userId: {
     type: Sequelize.INTEGER,
     unique: true,
-    allowNull: false,
-    primaryKey: true
+    allowNull: false
   },
-  userId: {
-    type: Sequelize.INTEGER
+  isFulfulled: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
