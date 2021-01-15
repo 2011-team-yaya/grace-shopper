@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:orderId', async (req, res, next) => {
   try {
-    const product = await Order.findByPk(req.params.orderId)
+    const order = await Order.findByPk(req.params.orderId)
 
     res.json(order)
   } catch (error) {
@@ -22,8 +22,8 @@ router.get('/:orderId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const newProduct = await Product.create(req.body)
-    res.json(newProduct)
+    const newOrder = await Order.create(req.body)
+    res.json(newOrder)
   } catch (error) {
     next(error)
   }
@@ -45,7 +45,7 @@ router.delete('/:orderId', async (req, res, next) => {
 
 router.put('/:orderId', async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.params.productId)
+    const order = await Order.findByPk(req.params.orderId)
 
     await order.update(req.body)
 
