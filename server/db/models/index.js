@@ -5,12 +5,13 @@ const Order = require('./order')
 const Order_Products = require('./order_products')
 const db = require('../db')
 
-Order.belongsTo(User)
-User.hasMany(Order)
+Order.belongsTo(User)  
+User.hasMany(Order) 
 
 Product.belongsToMany(Order, {
   through: Order_Products
 })
+
 Order.belongsToMany(Product, {
   through: Order_Products
 })
