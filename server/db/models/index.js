@@ -1,19 +1,20 @@
+/* eslint-disable camelcase */
 const User = require('./user')
 const Product = require('./products')
 const Order = require('./order')
-const Cart = require('./cart')
+const Order_Products = require('./order_products')
 const db = require('../db')
-// const Sequelize = require('sequelize')
 
 Order.belongsTo(User)
 User.hasMany(Order)
 
 Product.belongsToMany(Order, {
-  through: Cart
+  through: Order_Products
 })
 Order.belongsToMany(Product, {
-  through: Cart
+  through: Order_Products
 })
+
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -31,6 +32,6 @@ module.exports = {
   User,
   Product,
   db,
-  Cart,
+  Order_Products,
   Order
 }

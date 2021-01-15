@@ -18,7 +18,6 @@ async function seed() {
   ])
 
   const TestOrder = await Order.create({
-    id: 101,
     userId: 3
   })
 
@@ -171,6 +170,7 @@ async function seed() {
   })
 
   await TestOrder.addProduct(Cherry)
+  await TestOrder.addProduct(products[5])
 
   console.log(
     `seeded ${users.length} users and ${products.length + 1} products`
