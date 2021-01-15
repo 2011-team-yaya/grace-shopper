@@ -19,13 +19,11 @@ class AllProducts extends React.Component {
             return (
               <li key={product.id}>
                 <div>
-                  <p>
-                    <div className="singleProductImage">
-                      <Link to={`/products/${product.id}`} key={product.id}>
-                        <img src={image} />
-                      </Link>
-                    </div>
-                  </p>
+                  <div className="singleProductImage">
+                    <Link to={`/products/${product.id}`} key={product.id}>
+                      <img src={image} />
+                    </Link>
+                  </div>
                   <p>
                     <Link to={`/products/${product.id}`} key={product.id}>
                       {product.name}
