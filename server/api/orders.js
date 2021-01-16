@@ -13,7 +13,6 @@ router.get('/', async (req, res, next) => {
 router.get('/:orderId', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId)
-
     res.json(order)
   } catch (error) {
     next(error)

@@ -1,8 +1,8 @@
+/* eslint-disable camelcase */
 const router = require('express').Router()
 const {Product} = require('../db/models')
 const {Order} = require('../db/models')
 const {Order_Products} = require('../db/models')
-
 //router.get()???
 
 router.get('/:orderId', async (req, res, next) => {
@@ -44,10 +44,11 @@ router.delete('/:orderId', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    addedProduct = await Order_Products.update(req.body)
-
+    const addedProduct = await Order_Products.update(req.body)
     res.json(addedProduct)
   } catch (err) {
     next(err)
   }
 })
+
+module.exports = router
