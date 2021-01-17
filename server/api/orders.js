@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const {Order} = require('../db/models')
+const {adminsOnly} = require('./gatekeepers')
 
-router.get('/', async (req, res, next) => {
+//admins only
+router.get('/', adminsOnly, async (req, res, next) => {
   try {
     const orders = await Order.findAll()
     res.json(orders)
@@ -10,6 +12,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//secure or not? should it be seen only by user?
 router.get('/:orderId', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId)
