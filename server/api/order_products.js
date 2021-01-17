@@ -58,13 +58,13 @@ router.delete('/:orderId', async (req, res, next) => {
 // })
 
 // practice route --> for adding to logged in user's cart //
-router.put('/:productId', async (req, res, next) => {
-  console.log('put request')
+router.put('/:userId/:productId', async (req, res, next) => {
+  // console.log('put request')
   try {
     let unfullfilledOrder = await Order.findOne({
       where: {
         isFulfilled: false,
-        userId: 4 //should be req.session.userId
+        userId: req.params.userId //should be req.session.userId
       }
     })
     let productInOrder = await Order_Products.findOne({
