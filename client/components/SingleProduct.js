@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {addToOrderProducts} from '../store/cart'
 import {fetchSingleProduct} from '../store/singleProduct'
 // import {Link} from 'react-router-dom'
 
@@ -8,6 +9,7 @@ class SingleProduct extends Component {
   constructor() {
     super()
     this.addToCart = this.addToCart.bind(this)
+    this.addItemUser = this.addItemUser.bind(this)
   }
   // binding add to cart function //
 
@@ -15,7 +17,9 @@ class SingleProduct extends Component {
     this.props.fetchSingleProduct(this.props.match.params.productId)
     // console.log(this.props)
   }
-
+  addItemUser(product, userId) {
+    this.props.addToOrderProducts(product, userId)
+  }
   /*adding to cart button*/
   addToCart(product) {
     product = JSON.parse(product)
@@ -36,8 +40,11 @@ class SingleProduct extends Component {
       imageURL,
       price,
       quantity,
-      description
+      description,
+      id
     } = this.props.singleProduct
+    console.log(id, userId)
+
     return (
       <div>
         <h1>{name || 'Item Name'}</h1>
@@ -50,9 +57,13 @@ class SingleProduct extends Component {
         {/*adding to cart button*/}
         <button
           value={JSON.stringify(this.props.singleProduct)}
-          onClick={e => {
-            this.addToCart(e.target.value)
-          }}
+          onClick={
+            this.props.user.id
+              ? this.addItemUser(id, userId)
+              : e => {
+                  this.addToCart(e.target.value)
+                }
+          }
           type="submit"
         >
           {' '}
@@ -73,7 +84,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId))
+    fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
+    addToOrderProducts: (productId, userId) =>
+      dispatch(addToOrderProducts(productId, userId))
   }
 }
 

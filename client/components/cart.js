@@ -13,7 +13,7 @@ export class Cart extends React.Component {
     // console.log(this.state)
     this.props.fetchProducts()
 
-    this.props.fetchCartDb(5) //find a way to put the orderId here
+    this.props.fetchCartDb(6) //find a way to put the orderId here
   }
 
   render() {
