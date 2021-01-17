@@ -151,12 +151,24 @@ const products = [
 ]
 
 const users = [
-  {name: 'cody', email: 'cody@email.com', password: '123'},
-  {name: 'murphy', email: 'murphy@email.com', password: '123'},
+  {
+    name: 'cody',
+    email: 'cody@email.com',
+    password: '123',
+    isAdmin: false
+  },
+  {
+    name: 'murphy',
+    email: 'murphy@email.com',
+    password: '123',
+    isAdmin: false
+  },
+
   {
     name: 'Obama',
     email: 'Mr.ObamaForYourMama@gmail.com',
-    password: 'Michelle2024'
+    password: 'Michelle2024',
+    isAdmin: true
   }
 ]
 
