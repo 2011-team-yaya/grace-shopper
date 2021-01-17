@@ -31,6 +31,7 @@ class SingleProduct extends Component {
   /*adding to cart button*/
 
   render() {
+    const userId = this.props.user.id
     const {
       name,
       imageURL,
@@ -53,9 +54,10 @@ class SingleProduct extends Component {
           onClick={e => {
             this.addToCart(e.target.value)
           }}
+          type="submit"
         >
           {' '}
-          Add To Cart{' '}
+          Add To Cart{userId}
         </button>
         {/*adding to cart button*/}
       </div>
@@ -65,7 +67,8 @@ class SingleProduct extends Component {
 
 const mapState = state => {
   return {
-    singleProduct: state.singleProduct
+    singleProduct: state.singleProduct,
+    user: state.user
   }
 }
 
