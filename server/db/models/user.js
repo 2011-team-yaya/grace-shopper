@@ -6,7 +6,7 @@ const User = db.define('user', {
   name: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false,
+    allowNull: true,
     validate: {
       isAlpha: true
     }
