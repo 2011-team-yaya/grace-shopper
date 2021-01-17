@@ -22,15 +22,15 @@ class SingleProduct extends Component {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
     // we have already established a cart, so just push to it //
     if (cart) cart.push(product)
-    else
-      // cart has not been established, so make it //
-      cart = [product]
+    // cart has not been established, so make it //
+    else cart = [product]
     // assign the cart on storage to cart made here //
     window.localStorage.setItem('cart', JSON.stringify(cart))
   }
   /*adding to cart button*/
 
   render() {
+    const userId = this.props.user.id
     const {
       name,
       imageURL,
@@ -53,9 +53,10 @@ class SingleProduct extends Component {
           onClick={e => {
             this.addToCart(e.target.value)
           }}
+          type="submit"
         >
           {' '}
-          Add To Cart{' '}
+          Add To Cart{userId}
         </button>
         {/*adding to cart button*/}
       </div>
@@ -65,7 +66,8 @@ class SingleProduct extends Component {
 
 const mapState = state => {
   return {
-    singleProduct: state.singleProduct
+    singleProduct: state.singleProduct,
+    user: state.user
   }
 }
 
