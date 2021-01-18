@@ -25,9 +25,9 @@ export class Cart extends React.Component {
           <h1>{this.props.user.email}'s cart</h1>
           <ul>
             {cart.map(product => {
-              let id = product.productId
+              let id = product.productId - 1
+              //subtract 1 from product ID because array starts at 0 index.
               let currentProduct = this.props.products[id]
-              console.log(id)
               let image = `../images/${currentProduct.imageURL}` || 'test'
               return (
                 <li key={id}>
