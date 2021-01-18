@@ -19,7 +19,7 @@ export class Cart extends React.Component {
   render() {
     if (this.props.user.id) {
       let cart = this.props.cart
-      console.log(cart)
+      // console.log(cart)
       return (
         <div id="loggedInCart">
           <div className="all">
@@ -53,7 +53,12 @@ export class Cart extends React.Component {
                           {currentProduct.name}
                         </Link>
                       </p>
-                      <p>{currentProduct.price}</p>
+                      <p>Price: {currentProduct.price}</p>
+                      <p>Quantity Selected: {currentProduct.quantity}</p>
+                      <p>
+                        Item Total:{' '}
+                        {currentProduct.price * currentProduct.quantity}
+                      </p>
                     </div>
                   </li>
                 )
@@ -61,15 +66,16 @@ export class Cart extends React.Component {
             </ul>
           </div>
           <p>
-            Total: $
+            Order Total: $
             {cart
-              .filter(e => {
-                return e.price > 0
+              .map(i => {
+                return i.price * i.quantity
               })
               .reduce((current, accum) => {
-                return accum.price + current
+                return accum + current
               }, 0)}
           </p>
+          <button type="submit">Go to Checkout</button>
         </div>
       )
     } else {
@@ -82,6 +88,7 @@ export class Cart extends React.Component {
               <h1> guest cart </h1>
               <ul>
                 {cart.map(product => {
+                  // console.log(product)
                   let image = `../images/${product.imageURL}`
                   return (
                     <li key={product.id}>
@@ -97,7 +104,9 @@ export class Cart extends React.Component {
                             {product.name}
                           </Link>
                         </p>
-                        <p>{product.price}</p>
+                        <p>Price: {product.price}</p>
+                        <p>Quantity Selected: {product.quantity}</p>
+                        <p>Item Total: {product.price * product.quantity}</p>
                       </div>
                     </li>
                   )
@@ -105,11 +114,19 @@ export class Cart extends React.Component {
               </ul>
             </div>
             <p>
-              Total: $
-              {cart.reduce((current, accum) => {
-                return accum.price + current
-              }, 0)}
+              Order Total: $
+              {cart
+                .map(i => {
+                  return i.price * i.quantity
+                })
+                .reduce((current, accum) => {
+                  return accum + current
+                }, 0)}
             </p>
+            <a href="/login/">
+              <button type="submit">Please Log-In before Checkout</button>
+            </a>
+            <button type="submit">Checkout as a Guest</button>
           </div>
         )
     }
