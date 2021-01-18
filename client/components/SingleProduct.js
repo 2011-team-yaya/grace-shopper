@@ -26,8 +26,10 @@ class SingleProduct extends Component {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
     // we have already established a cart, so just push to it //
     if (cart) cart.push(product)
+    //if they already added the item to the cart, increment quantity
     // cart has not been established, so make it //
     else cart = [product]
+    //first time they add this unique item, we need to set the quantity to 1
     // assign the cart on storage to cart made here //
     window.localStorage.setItem('cart', JSON.stringify(cart))
   }

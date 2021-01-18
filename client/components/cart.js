@@ -3,61 +3,55 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchCartDb} from '../store/cart'
 import {fetchProducts} from '../store/products'
+import Cookies from 'js-cookie'
+
 export class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.props.fetchCartDb()
   }
   componentDidMount() {
-    // console.log(window.localStorage) ;
+    // console.log(window.localStorage)
     // this.props.cart = JSON.parse( window.localStorage.getItem('cart') ) ;
     // console.log(this.state)
+    // console.log(this.state.orderId, 'this.state.orderId')
     this.props.fetchProducts()
-
-    this.props.fetchCartDb(6) //find a way to put the orderId here
+    this.props.fetchCartDb() //find a way to put the orderId here
   }
 
   render() {
     if (this.props.user.id) {
-      let cart = this.props.cart
-      // console.log(cart)
+      let products = this.props.cart.products || []
+
       return (
         <div id="loggedInCart">
           <div className="all">
             <h1>{this.props.user.email}'s cart</h1>
             <ul>
-              {cart.map(product => {
-                let id = product.productId - 1
-                //subtract 1 from product ID because array starts at 0 index.
-                let currentProduct = this.props.products[id]
-                let image = `../images/${currentProduct.imageURL}` || 'test'
-                product.price = currentProduct.price
-                // console.log(product)
+              {products.map(product => {
+                let image = `../images/${product.imageURL}` || 'test'
+                let id = product.id
 
                 return (
                   <li key={id}>
                     <div>
-                      <div className="singlecartImage">
-                        <Link
-                          to={`/products/${currentProduct.id}`}
-                          key={currentProduct.id}
-                        >
+                      <div className="singleCartImage">
+                        <Link to={`/products/${product.id}`} key={product.id}>
                           <img src={image} />
                         </Link>
                       </div>
-
                       <p>
-                        <Link
-                          to={`/products/${currentProduct.id}`}
-                          key={currentProduct.id}
-                        >
-                          {currentProduct.name}
+                        <Link to={`/products/${product.id}`} key={product.id}>
+                          {product.name}
                         </Link>
                       </p>
-                      <p>Price: {currentProduct.price}</p>
-                      <p>Quantity Selected: {currentProduct.quantity}</p>
+                      <p>Price: {product.price}</p>
+                      <p>
+                        Quantity Selected: {product.order_products.quantity}
+                      </p>
                       <p>
                         Item Total:{' '}
-                        {currentProduct.price * currentProduct.quantity}
+                        {product.price * product.order_products.quantity}
                       </p>
                     </div>
                   </li>
@@ -67,9 +61,9 @@ export class Cart extends React.Component {
           </div>
           <p>
             Order Total: $
-            {cart
+            {products
               .map(i => {
-                return i.price * i.quantity
+                return i.price * i.order_products.quantity
               })
               .reduce((current, accum) => {
                 return accum + current
@@ -143,7 +137,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchCartDb: orderId => dispatch(fetchCartDb(orderId)),
+    fetchCartDb: () => dispatch(fetchCartDb()),
     fetchProducts: () => dispatch(fetchProducts())
   }
 }

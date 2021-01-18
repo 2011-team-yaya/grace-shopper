@@ -20,7 +20,11 @@ router.post('/login', async (req, res, next) => {
       })
       const currentOrderId = order.dataValues.id
 
-      // window.sessionStorage.setItem('orderId', JSON.stringify(currentOrderId))
+      res.cookie('orderId', JSON.stringify(currentOrderId), {
+        signed: false,
+        httpOnly: true
+      })
+
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -41,8 +45,11 @@ router.post('/signup', async (req, res, next) => {
     let newOrder = await Order.create()
     const orderWithUser = await newOrder.setUser(req.session.userId)
     req.session.orderId = orderWithUser.id
+    console.log(req.session)
+    res.cookie('orderId', req.session.orderId, {signed: true, httpOnly: true})
     // window.sessionStorage.setItem('orderId', orderWithUser.id)
     req.login(user, err => (err ? next(err) : res.json(user)))
+
     res.end()
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

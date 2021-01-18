@@ -15,10 +15,10 @@ const addToCart = product => {
     product
   }
 }
-export const fetchCartDb = orderId => {
+export const fetchCartDb = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/order_products/${orderId}`)
+      const {data} = await axios.get(`/api/order_products/hello`)
       dispatch(getCart(data))
     } catch (error) {
       console.log(error)
