@@ -28,10 +28,12 @@ router.post('/signup', async (req, res, next) => {
       password,
       googleId
     })
-    req.login(user, err => (err ? next(err) : res.json(user)))
+    //moved req.login to the bottom
     req.session.userId = req.user.dataValues.id
     let newOrder = await Order.create()
-    newOrder.setUser(req.session.userId)
+    const orderWithUser = await newOrder.setUser(req.session.userId)
+    req.session.orderId = orderWithUser.id
+    req.login(user, err => (err ? next(err) : res.json(user)))
     res.end()
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
