@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import Axios from 'axios'
 
 class SingleProduct extends Component {
   // binding add to cart function //
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+
     this.addToCart = this.addToCart.bind(this)
+    this.deleteProduct = this.deleteProduct.bind(this)
   }
   // binding add to cart function //
 
@@ -30,15 +33,28 @@ class SingleProduct extends Component {
   }
   /*adding to cart button*/
 
+  async deleteProduct(productId) {
+    try {
+      await Axios.delete(`/api/products/${productId}`)
+      alert(`Product has been deleted. Please go back to Shop!`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   render() {
+    const {isAdmin} = this.props.user
     const userId = this.props.user.id
+
     const {
+      id,
       name,
       imageURL,
       price,
       quantity,
       description
     } = this.props.singleProduct
+
     return (
       <div>
         <h1>{name || 'Item Name'}</h1>
@@ -59,7 +75,27 @@ class SingleProduct extends Component {
           {' '}
           Add To Cart{userId}
         </button>
+        {'  '}
+        <br />
+        <br />
         {/*adding to cart button*/}
+
+        {//renders Edit and Delete buttons if user is Admin
+        isAdmin && (
+          <div>
+            <Link to={`/editproduct/${id}`}>
+              <button>Edit</button>
+            </Link>
+            <br />
+            <br />
+            <button onClick={() => this.deleteProduct(id)}>Delete Item</button>
+            <br />
+            <br />
+            <Link to="/">
+              <button>Back to Shop</button>
+            </Link>
+          </div>
+        )}
       </div>
     )
   }

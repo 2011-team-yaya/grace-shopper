@@ -10,9 +10,17 @@ class AllProducts extends React.Component {
 
   render() {
     let products = this.props.products
+    let {isAdmin} = this.props
     return (
       <div className="all">
         <h1> Products </h1>
+        <br />
+        <Link to="/addproduct">
+          <button>Add New Product</button>
+        </Link>
+        <br />
+        <br />
+        <br />
         <ul>
           {products.map(product => {
             let image = `../images/${product.imageURL}`
@@ -42,7 +50,8 @@ class AllProducts extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.products,
+    isAdmin: state.user.isAdmin
   }
 }
 
