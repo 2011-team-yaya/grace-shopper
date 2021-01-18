@@ -46,13 +46,14 @@ class SingleProduct extends Component {
     console.log(id, userId)
 
     return (
-      <div>
-        <h1>{name || 'Item Name'}</h1>
+      <div id="singleProductBox">
         <div className="singleProductImage">
           <img src={`../images/${imageURL}`} />
         </div>
-        <p className="capDescription">{description}</p>
+        <h1>{name || 'Item Name'}</h1>
         <p>price: {price}</p>
+        <p className="capDescription">{description}</p>
+
         <p>quantity available: {quantity}</p>
         {/*adding to cart button*/}
         <button
