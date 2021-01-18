@@ -11,12 +11,10 @@ export class Cart extends React.Component {
     this.props.fetchCartDb()
   }
   componentDidMount() {
-    // console.log(window.localStorage)
-    // this.props.cart = JSON.parse( window.localStorage.getItem('cart') ) ;
-    // console.log(this.state)
-    // console.log(this.state.orderId, 'this.state.orderId')
     this.props.fetchProducts()
-    this.props.fetchCartDb() //find a way to put the orderId here
+    if (this.props.user.id) {
+      this.props.fetchCartDb()
+    }
   }
 
   render() {
@@ -87,7 +85,7 @@ export class Cart extends React.Component {
                   return (
                     <li key={product.id}>
                       <div>
-                        <div className="singlecartImage">
+                        <div className="singleCartImage">
                           <Link to={`/products/${product.id}`} key={product.id}>
                             <img src={image} />
                           </Link>
