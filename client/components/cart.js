@@ -21,40 +21,55 @@ export class Cart extends React.Component {
       let cart = this.props.cart
       console.log(cart)
       return (
-        <div className="all">
-          <h1>{this.props.user.email}'s cart</h1>
-          <ul>
-            {cart.map(product => {
-              let id = product.productId - 1
-              //subtract 1 from product ID because array starts at 0 index.
-              let currentProduct = this.props.products[id]
-              let image = `../images/${currentProduct.imageURL}` || 'test'
-              return (
-                <li key={id}>
-                  <div>
-                    <div className="singlecartImage">
-                      <Link
-                        to={`/products/${currentProduct.id}`}
-                        key={currentProduct.id}
-                      >
-                        <img src={image} />
-                      </Link>
-                    </div>
+        <div id="loggedInCart">
+          <div className="all">
+            <h1>{this.props.user.email}'s cart</h1>
+            <ul>
+              {cart.map(product => {
+                let id = product.productId - 1
+                //subtract 1 from product ID because array starts at 0 index.
+                let currentProduct = this.props.products[id]
+                let image = `../images/${currentProduct.imageURL}` || 'test'
+                product.price = currentProduct.price
+                // console.log(product)
 
-                    <p>
-                      <Link
-                        to={`/products/${currentProduct.id}`}
-                        key={currentProduct.id}
-                      >
-                        {currentProduct.name}
-                      </Link>
-                    </p>
-                    <p>{currentProduct.price}</p>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
+                return (
+                  <li key={id}>
+                    <div>
+                      <div className="singlecartImage">
+                        <Link
+                          to={`/products/${currentProduct.id}`}
+                          key={currentProduct.id}
+                        >
+                          <img src={image} />
+                        </Link>
+                      </div>
+
+                      <p>
+                        <Link
+                          to={`/products/${currentProduct.id}`}
+                          key={currentProduct.id}
+                        >
+                          {currentProduct.name}
+                        </Link>
+                      </p>
+                      <p>{currentProduct.price}</p>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <p>
+            Total: $
+            {cart
+              .filter(e => {
+                return e.price > 0
+              })
+              .reduce((current, accum) => {
+                return accum.price + current
+              }, 0)}
+          </p>
         </div>
       )
     } else {
@@ -62,31 +77,39 @@ export class Cart extends React.Component {
       if (!cart) return <div> your cart is currently empty </div>
       else
         return (
-          <div className="all">
-            <h1> guest cart </h1>
-            <ul>
-              {cart.map(product => {
-                let image = `../images/${product.imageURL}`
-                return (
-                  <li key={product.id}>
-                    <div>
-                      <div className="singlecartImage">
-                        <Link to={`/products/${product.id}`} key={product.id}>
-                          <img src={image} />
-                        </Link>
-                      </div>
+          <div id="guestCart">
+            <div className="all">
+              <h1> guest cart </h1>
+              <ul>
+                {cart.map(product => {
+                  let image = `../images/${product.imageURL}`
+                  return (
+                    <li key={product.id}>
+                      <div>
+                        <div className="singlecartImage">
+                          <Link to={`/products/${product.id}`} key={product.id}>
+                            <img src={image} />
+                          </Link>
+                        </div>
 
-                      <p>
-                        <Link to={`/products/${product.id}`} key={product.id}>
-                          {product.name}
-                        </Link>
-                      </p>
-                      <p>{product.price}</p>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
+                        <p>
+                          <Link to={`/products/${product.id}`} key={product.id}>
+                            {product.name}
+                          </Link>
+                        </p>
+                        <p>{product.price}</p>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            <p>
+              Total: $
+              {cart.reduce((current, accum) => {
+                return accum.price + current
+              }, 0)}
+            </p>
           </div>
         )
     }
