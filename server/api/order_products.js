@@ -12,18 +12,7 @@ router.get('/', async (req, res, next) => {
     console.log(error)
   }
 })
-// router.get('/:orderId', async (req, res, next) => {
-//   try {
-//     const orderProducts = await Order_Products.findAll({
-//       where: {
-//         orderId: req.params.orderId
-//       }
-//     })
-//     res.json(orderProducts)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+
 //better route
 router.get('/:anything', async (req, res, next) => {
   try {
