@@ -13,7 +13,6 @@ class AllProducts extends React.Component {
     let {isAdmin} = this.props
     return (
       <div className="all">
-        <h1> Products </h1>
         <br />
         {isAdmin && (
           <div>

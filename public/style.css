@@ -1,5 +1,5 @@
 body {
-  font-family: monospace;
+  font-family: Roboto Mono, monospace;
   color: rgb(170, 170, 170);
 }
 
@@ -50,18 +50,6 @@ form div {
   max-width: 200px;
 }
 
-/* .nav-bar {
-  display: flex;
-  justify-content: space-between;
-  transition: transform 0.5s;
-  width: 100%;
-  position: fixed;
-  vertical-align: middle;
-  top: 0;
-  background-color: rgb(210, 210, 43);
-  margin: auto;
-} */
-
 .nav-bar {
   overflow: hidden;
   display: flex;
@@ -72,9 +60,18 @@ form div {
   position: static;
   vertical-align: middle;
   top: 0;
+  align-items: center;
 }
 #pageName {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Roboto Mono, monospace, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 63px;
+  width: 318px;
+  height: 63px;
+  left: 801px;
+  top: 62px;
 }
 #pageName div {
   color: black;
@@ -84,11 +81,19 @@ form div {
 #singleProductBox {
   margin-left: 30vw;
   width: 50vw;
-  /* display: inline-flex; */
 }
 #singleProductBox p {
   display: block;
 }
 .navBarImages {
   width: 30px;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+hr {
+  flex-grow: 1;
 }
