@@ -7,10 +7,10 @@ const cartLink = `../images/cart.png`
 const loginImage = `../images/account.png`
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div className="container">
-    <h1 id="pageName">
-      <div>[ ALL</div>CAPS ]
-    </h1>
     <nav className="nav-bar">
+      <h1 id="pageName">
+        <div>[ ALL</div>CAPS ]
+      </h1>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
@@ -32,17 +32,17 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/products">All Products</Link>
+          <Link to="/products">Shop</Link>
           <Link to="/signup">Sign Up</Link>
-          <span title="Cart">
-            <Link to="/cart">
-              <img className="navBarImages" src={cartLink} />
-            </Link>
-          </span>
 
           <span title="Login">
             <Link to="/login">
               <img className="navBarImages" src={loginImage} />
+            </Link>
+          </span>
+          <span title="Cart">
+            <Link to="/cart">
+              <img className="navBarImages" src={cartLink} />
             </Link>
           </span>
         </div>
