@@ -3,6 +3,8 @@ const User = require('../db/models/user')
 const {Order} = require('../db/models')
 module.exports = router
 
+// const myStorage = window.sessionStorage
+
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({where: {email: req.body.email}})
@@ -13,6 +15,16 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
+      const order = await Order.findOne({
+        where: {userId: user.id, isFulfilled: false}
+      })
+      const currentOrderId = order.dataValues.id
+
+      res.cookie('orderId', JSON.stringify(currentOrderId), {
+        signed: false,
+        httpOnly: true
+      })
+
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -28,10 +40,16 @@ router.post('/signup', async (req, res, next) => {
       password,
       googleId
     })
-    req.login(user, err => (err ? next(err) : res.json(user)))
+    //moved req.login to the bottom
     req.session.userId = req.user.dataValues.id
     let newOrder = await Order.create()
-    newOrder.setUser(req.session.userId)
+    const orderWithUser = await newOrder.setUser(req.session.userId)
+    req.session.orderId = orderWithUser.id
+    console.log(req.session)
+    res.cookie('orderId', req.session.orderId, {signed: true, httpOnly: true})
+    // window.sessionStorage.setItem('orderId', orderWithUser.id)
+    req.login(user, err => (err ? next(err) : res.json(user)))
+
     res.end()
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

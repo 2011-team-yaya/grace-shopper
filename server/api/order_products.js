@@ -12,20 +12,33 @@ router.get('/', async (req, res, next) => {
     console.log(error)
   }
 })
-
-router.get('/:orderId', async (req, res, next) => {
+// router.get('/:orderId', async (req, res, next) => {
+//   try {
+//     const orderProducts = await Order_Products.findAll({
+//       where: {
+//         orderId: req.params.orderId
+//       }
+//     })
+//     res.json(orderProducts)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+//better route
+router.get('/:anything', async (req, res, next) => {
   try {
-    const orderProducts = await Order_Products.findAll({
+    const orderProducts = await Order.findOne({
       where: {
-        orderId: req.params.orderId
-      }
+        userId: req.user.id,
+        isFulfilled: false
+      },
+      include: Product
     })
     res.json(orderProducts)
   } catch (error) {
     next(error)
   }
 })
-
 router.post('/:orderId', async (req, res, next) => {
   try {
     const orderProduct = await Order_Products.create(req.body)

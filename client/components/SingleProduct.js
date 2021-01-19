@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {addToOrderProducts} from '../store/cart'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
@@ -11,6 +12,7 @@ class SingleProduct extends Component {
 
     this.addToCart = this.addToCart.bind(this)
     this.deleteProduct = this.deleteProduct.bind(this)
+    this.addItemUser = this.addItemUser.bind(this)
   }
   // binding add to cart function //
 
@@ -18,7 +20,9 @@ class SingleProduct extends Component {
     this.props.fetchSingleProduct(this.props.match.params.productId)
     // console.log(this.props)
   }
-
+  addItemUser(product, userId) {
+    this.props.addToOrderProducts(product, userId)
+  }
   /*adding to cart button*/
   addToCart(product) {
     product = JSON.parse(product)
@@ -26,8 +30,10 @@ class SingleProduct extends Component {
     // we have already established a cart, so just push to it //
     if (cart) cart.push(product)
     else
+      //if they already added the item to the cart, increment quantity
       // cart has not been established, so make it //
       cart = [product]
+    //first time they add this unique item, we need to set the quantity to 1
     // assign the cart on storage to cart made here //
     window.localStorage.setItem('cart', JSON.stringify(cart))
   }
@@ -56,20 +62,25 @@ class SingleProduct extends Component {
     } = this.props.singleProduct
 
     return (
-      <div>
-        <h1>{name || 'Item Name'}</h1>
+      <div id="singleProductBox">
         <div className="singleProductImage">
           <img src={`../images/${imageURL}`} />
         </div>
-        <p className="capDescription">{description}</p>
+        <h1>{name || 'Item Name'}</h1>
         <p>price: {price}</p>
+        <p className="capDescription">{description}</p>
+
         <p>quantity available: {quantity}</p>
         {/*adding to cart button*/}
         <button
           value={JSON.stringify(this.props.singleProduct)}
-          onClick={e => {
-            this.addToCart(e.target.value)
-          }}
+          onClick={
+            this.props.user.id
+              ? this.addItemUser(id, userId)
+              : e => {
+                  this.addToCart(e.target.value)
+                }
+          }
           type="submit"
         >
           {' '}
@@ -110,7 +121,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId))
+    fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
+    addToOrderProducts: (productId, userId) =>
+      dispatch(addToOrderProducts(productId, userId))
   }
 }
 
