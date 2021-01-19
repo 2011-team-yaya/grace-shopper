@@ -155,7 +155,7 @@ const users = [
     name: 'cody',
     email: 'cody@email.com',
     password: '123',
-    isAdmin: false
+    isAdmin: true
   },
   {
     name: 'murphy',
