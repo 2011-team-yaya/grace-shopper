@@ -57,9 +57,8 @@ class SingleProduct extends Component {
       imageURL,
       price,
       quantity,
-      description,
+      description
     } = this.props.singleProduct
-
 
     return (
       <div id="singleProductBox">
