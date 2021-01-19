@@ -3,7 +3,16 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 // imported Cart //
-import {Login, Signup, UserHome, AllProducts, Cart} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  AllProducts,
+  Cart,
+  AdminHome,
+  EditProduct,
+  AddProduct
+} from './components'
 import SingleProduct from './components/SingleProduct'
 import {me} from './store'
 
@@ -32,8 +41,16 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/adminhome" component={AdminHome} />
+            <Route
+              exact
+              path="/editproduct/:productId"
+              component={EditProduct}
+            />
+            <Route path="/addproduct" component={AddProduct} />
           </Switch>
         )}
+
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
@@ -48,7 +65,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 
