@@ -3,8 +3,6 @@ const User = require('../db/models/user')
 const {Order} = require('../db/models')
 module.exports = router
 
-// const myStorage = window.sessionStorage
-
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({where: {email: req.body.email}})
@@ -40,14 +38,12 @@ router.post('/signup', async (req, res, next) => {
       password,
       googleId
     })
-    //moved req.login to the bottom
-    req.session.userId = req.user.dataValues.id
+
     let newOrder = await Order.create()
-    const orderWithUser = await newOrder.setUser(req.session.userId)
-    req.session.orderId = orderWithUser.id
-    console.log(req.session)
-    res.cookie('orderId', req.session.orderId, {signed: true, httpOnly: true})
-    // window.sessionStorage.setItem('orderId', orderWithUser.id)
+    await newOrder.setUser(req.session.userId)
+
+    // res.cookie('orderId', req.session.orderId, {signed: true, httpOnly: true})
+
     req.login(user, err => (err ? next(err) : res.json(user)))
 
     res.end()

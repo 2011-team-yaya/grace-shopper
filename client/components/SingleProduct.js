@@ -4,6 +4,7 @@ import {addToOrderProducts} from '../store/cart'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
+import history from '../history'
 
 class SingleProduct extends Component {
   // binding add to cart function //
@@ -29,19 +30,19 @@ class SingleProduct extends Component {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
     // we have already established a cart //
     if (cart) {
-      let productMatch = cart.find( cartProduct => cartProduct.id === product.id ) ;
+      let productMatch = cart.find(cartProduct => cartProduct.id === product.id)
       // if product is already in cart increment quantity
-      if ( productMatch ) productMatch.quantity++ ;
+      if (productMatch) productMatch.quantity++
       // if product is not in cart
-      else {  
-        product.quantity = 1 ; 
+      else {
+        product.quantity = 1
         cart.push(product)
       }
     }
     // cart has not been established, so make it //
     else {
-      product.quantity = 1 ; 
-      cart = [product] 
+      product.quantity = 1
+      cart = [product]
     }
     // assign the cart on storage to cart made here //
     window.localStorage.setItem('cart', JSON.stringify(cart))
@@ -51,7 +52,7 @@ class SingleProduct extends Component {
   async deleteProduct(productId) {
     try {
       await Axios.delete(`/api/products/${productId}`)
-      alert(`Product has been deleted. Please go back to Shop!`)
+      history.push('/products')
     } catch (error) {
       console.log(error)
     }
@@ -109,11 +110,6 @@ class SingleProduct extends Component {
             <br />
             <br />
             <button onClick={() => this.deleteProduct(id)}>Delete Item</button>
-            <br />
-            <br />
-            <Link to="/">
-              <button>Back to Shop</button>
-            </Link>
           </div>
         )}
       </div>
