@@ -15,11 +15,16 @@ class AllProducts extends React.Component {
       <div className="all">
         <h1> Products </h1>
         <br />
-        <Link to="/addproduct">
-          <button>Add New Product</button>
-        </Link>
-        <br />
-        <br />
+        {isAdmin && (
+          <div>
+            <Link to="/addproduct">
+              <button>Add New Product</button>
+            </Link>
+            <br />
+            <br />
+          </div>
+        )}
+
         <br />
         <ul>
           {products.map(product => {

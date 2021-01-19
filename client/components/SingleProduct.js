@@ -69,7 +69,7 @@ class SingleProduct extends Component {
         <p>price: {price}</p>
         <p className="capDescription">{description}</p>
 
-        <p>quantity available: {quantity}</p>
+        <p>quantity available: {quantity === 0 ? 'Out of Stock' : quantity}</p>
         {/*adding to cart button*/}
         <button
           value={JSON.stringify(this.props.singleProduct)}

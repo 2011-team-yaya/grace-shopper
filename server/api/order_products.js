@@ -12,7 +12,6 @@ router.get('/', async (req, res, next) => {
     console.log(error)
   }
 })
-
 //better route
 router.get('/:anything', async (req, res, next) => {
   try {
