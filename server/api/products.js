@@ -24,7 +24,22 @@ router.get('/:productId', async (req, res, next) => {
 //for administrator use only: POST, DELETE, PUT
 router.post('/', adminsOnly, async (req, res, next) => {
   try {
-    const newProduct = await Product.create(req.body)
+    const imageURL = req.body.imageURL === '' ? undefined : req.body.imageURL
+
+    const quantity = req.body.quantity === '' ? undefined : req.body.quantity
+
+    const description =
+      req.body.description === '' ? undefined : req.body.description
+
+    const price = req.body.price === '' ? undefined : req.body.price
+
+    const newProduct = await Product.create({
+      name: req.body.name,
+      imageURL: imageURL,
+      quantity: quantity,
+      description: description,
+      price: price
+    })
     res.json(newProduct)
   } catch (error) {
     next(error)
