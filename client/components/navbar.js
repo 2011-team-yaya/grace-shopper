@@ -14,11 +14,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <span title="Cart">
-            <Link to="/cart">
-              <img className="navBarImages" src={cartLink} />
-            </Link>
-          </span>
           <Link to="/products">Shop</Link>
           <Link to="/home">Home</Link>
           <span title="Logout">
@@ -26,22 +21,28 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <img className="navBarImages" src={loginImage} />
             </a>
           </span>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
           <span title="Cart">
             <Link to="/cart">
               <img className="navBarImages" src={cartLink} />
             </Link>
           </span>
+        </div>
+      ) : (
+        <div>
+          {/* The navbar will show these links before you log in */}
           <Link to="/products">All Products</Link>
+          <Link to="/signup">Sign Up</Link>
+          <span title="Cart">
+            <Link to="/cart">
+              <img className="navBarImages" src={cartLink} />
+            </Link>
+          </span>
+
           <span title="Login">
             <Link to="/login">
               <img className="navBarImages" src={loginImage} />
             </Link>
           </span>
-          <Link to="/signup">Sign Up</Link>
         </div>
       )}
     </nav>
