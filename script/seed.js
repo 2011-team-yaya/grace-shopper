@@ -172,16 +172,7 @@ const users = [
   }
 ]
 
-// const TestOrder = await Order.create({
-//   userId: 3
-// })
-
-// await TestOrder.addProduct(Cherry)
-// await TestOrder.addProduct(products[5])
-
-//ADD AN ORDERS ARRAY!
-
-const orders = [{}, {}, {}, {}]
+const orders = [{}, {}, {}]
 
 async function seed() {
   try {
@@ -192,21 +183,35 @@ async function seed() {
         return User.create(user)
       })
     )
-    await Promise.all(
+
+    const productsArray = await Promise.all(
       products.map(product => {
         return Product.create(product)
       })
     )
+
     const testOrders = await Promise.all(
       orders.map(order => {
         return Order.create(order)
       })
     )
-    await Promise.all(
-      testOrders.map(order => {
-        return order.setUser(userArray[0])
+    
+    const userOrders = await Promise.all(
+      testOrders.map( (order,index) => {
+        return order.setUser(userArray[index])
       })
-    )
+      )
+
+     let leftProducts = productsArray.slice(0,Math.floor(productsArray.length/2)) ; 
+     let rightProducts = productsArray.slice(Math.floor(productsArray.length/2)) ;
+     let assignedProducts = leftProducts ; 
+     const orderProducts = await Promise.all(
+       userOrders.map( userOrder => {
+         assignedProducts = (assignedProducts === leftProducts) ? rightProducts : leftProducts ; 
+         return userOrder.addProducts(assignedProducts) ; 
+       } )
+     )  
+
   } catch (error) {
     console.log(error)
   }
