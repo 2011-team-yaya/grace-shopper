@@ -13,15 +13,18 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "grace_shopper-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: powerful-beyond-48354
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: gSJG/5Qvogx5PQKEDF7dOdV4Zqm2noxxsdCjI3FzU0umnoEeKS9uAiZi3p+p9IOdJjkP54WME19nB0Vr2pZ1TahmDcT7FST4e04MpRWF28GgZVktqPOVsWr2Mw9/NW3sWBeG/lUXl8erc2vPzbg3Udzgk0p6bvJnHuJpGTD383nB0INpO1NKV6lYm8k6jZ6SOrB/0jztfRA16kfjgIg20MxB1jBCoYF2DkJKAxxa+Tmuwu4sMPvmItpxsD0HR9tq/wPaJHn2TpVwJHPc3War4LN9jd7qOZNi8XudHRY1gVwHX+eTKpj+SwlEa2o8VcoypnRy/TIvTSBKRMbl7xhj8P8ea/54/5w6IiB+VHBy0BJOkD5OahBu+PXjsKBqqtD2Mqg49gVCL3b68F0OodT8rJYvcpUpONOwxwca2IIy7mggDaqR+Y7UdYzFJUubDzC2YK0TJ13mXI1NTCRWwmhxQYPx5nKBoKNOYNHraAuurtzy8pO3NnDmSvJsYz6xJPWXLt1kgWiIg+um3lBwHfEYSvc6GYwwCTmPkLFLgIhuFymjmEv7w2i3WeMCr41dk7/dAlj0nNQp35PZXWUSZVceoCFEtHjiLx9h1BY1DIv2wkeb4f9jtZW33n3eQmmeXgwniLfA7Yh8iJLSP99yOz8OCWyRx70tCqYAAaSaXDmCeas=
