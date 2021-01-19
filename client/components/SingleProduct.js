@@ -27,12 +27,22 @@ class SingleProduct extends Component {
   addToCart(product) {
     product = JSON.parse(product)
     let cart = JSON.parse(window.localStorage.getItem('cart'))
-    // we have already established a cart, so just push to it //
-    if (cart) cart.push(product)
-    //if they already added the item to the cart, increment quantity
+    // we have already established a cart //
+    if (cart) {
+      let productMatch = cart.find( cartProduct => cartProduct.id === product.id ) ;
+      // if product is already in cart increment quantity
+      if ( productMatch ) productMatch.quantity++ ;
+      // if product is not in cart
+      else {  
+        product.quantity = 1 ; 
+        cart.push(product)
+      }
+    }
     // cart has not been established, so make it //
-    else cart = [product]
-    //first time they add this unique item, we need to set the quantity to 1
+    else {
+      product.quantity = 1 ; 
+      cart = [product] 
+    }
     // assign the cart on storage to cart made here //
     window.localStorage.setItem('cart', JSON.stringify(cart))
   }
