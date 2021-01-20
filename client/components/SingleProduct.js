@@ -29,25 +29,25 @@ class SingleProduct extends Component {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
     // we have already established a cart //
     if (cart) {
-      let productMatch = cart.find( cartProduct => cartProduct.id === product.id ) ;
+      let productMatch = cart.find(cartProduct => cartProduct.id === product.id)
       // if product is already in cart increment quantity
-      if ( productMatch ) productMatch.quantity++ ;
+      if (productMatch) productMatch.quantity++
       // if product is not in cart
-      else {  
-        product.quantity = 1 ; 
+      else {
+        product.quantity = 1
         cart.push(product)
       }
     }
     // cart has not been established, so make it //
     else {
-      product.quantity = 1 ; 
-      cart = [product] 
+      product.quantity = 1
+      cart = [product]
     }
     // assign the cart on storage to cart made here //
     window.localStorage.setItem('cart', JSON.stringify(cart))
   }
   /*adding to cart button*/
-
+  //thunk???????????
   async deleteProduct(productId) {
     try {
       await Axios.delete(`/api/products/${productId}`)
