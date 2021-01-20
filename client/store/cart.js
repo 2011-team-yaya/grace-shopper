@@ -39,7 +39,6 @@ export const addToOrderProducts = (productId, userId) => {
       const {data} = await axios.put(
         `/api/order_products/${userId}/${productId}`
       )
-      console.log(data, 'addToOrderProducts')
       dispatch(addToCart(data))
     } catch (error) {
       console.log(error)
@@ -50,8 +49,9 @@ export const removeOrderProducts = (userId, productId) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(
-        `api/order_products/${userId}/${productId}`
+        `api/order_products/deleteFromCart/${userId}/${productId}`
       )
+
       dispatch(removeFromCart(data))
     } catch (error) {
       console.log(error)
@@ -66,7 +66,7 @@ export default function cartReducer(cart = [], action) {
     case ADD_ITEM_TO_CART:
       return [...cart.products, action.product]
     case REMOVE_FROM_CART:
-      return [...cart.filter(product => product.id !== action.id)]
+      return [...cart.filter(product => product.id !== action.product)]
     default:
       return cart
   }

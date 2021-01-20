@@ -21,7 +21,7 @@ export class Cart extends React.Component {
     }
   }
   removeFromUserCart(user, product) {
-    this.props.removeOrderProducts(user, product)
+    this.props.removeProduct(user, product)
   }
   removeFromGuestCart(id) {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
@@ -176,7 +176,7 @@ const mapDispatch = dispatch => {
   return {
     fetchCartDb: () => dispatch(fetchCartDb()),
     fetchProducts: () => dispatch(fetchProducts()),
-    removeOrderProducts: (userId, productId) =>
+    removeProduct: (userId, productId) =>
       dispatch(removeOrderProducts(userId, productId))
   }
 }

@@ -54,14 +54,28 @@ router.delete('/:orderId', async (req, res, next) => {
   }
 })
 
-// router.put('/', async (req, res, next) => {
-//   try {
-//     const addedProduct = await Order_Products.update(req.body)
-//     res.json(addedProduct)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+router.put('/deleteFromCart/:userId/:productId', async (req, res, next) => {
+  try {
+    let order = await Order.findOne({
+      where: {
+        isFulfilled: false,
+        userId: req.params.userId
+      }
+    })
+    let productInOrder = await Order_Products.findOne({
+      where: {
+        productId: req.params.productId,
+        orderId: order.id
+      }
+    })
+    productInOrder
+      ? await productInOrder.destroy()
+      : new Error('product is not in cart')
+    res.send(req.params.productId)
+  } catch (err) {
+    next(err)
+  }
+})
 
 // practice route --> for adding to logged in user's cart //
 router.put('/:userId/:productId', async (req, res, next) => {
