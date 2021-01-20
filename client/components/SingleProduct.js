@@ -4,6 +4,7 @@ import {addToOrderProducts} from '../store/cart'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
+import history from '../history'
 
 class SingleProduct extends Component {
   // binding add to cart function //
@@ -51,7 +52,7 @@ class SingleProduct extends Component {
   async deleteProduct(productId) {
     try {
       await Axios.delete(`/api/products/${productId}`)
-      alert(`Product has been deleted. Please go back to Shop!`)
+      history.push('/products')
     } catch (error) {
       console.log(error)
     }
@@ -109,11 +110,6 @@ class SingleProduct extends Component {
             <br />
             <br />
             <button onClick={() => this.deleteProduct(id)}>Delete Item</button>
-            <br />
-            <br />
-            <Link to="/">
-              <button>Back to Shop</button>
-            </Link>
           </div>
         )}
       </div>
