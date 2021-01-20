@@ -48,7 +48,7 @@ class SingleProduct extends Component {
     window.localStorage.setItem('cart', JSON.stringify(cart))
   }
   /*adding to cart button*/
-  //thunk???????????
+
   async deleteProduct(productId) {
     try {
       await Axios.delete(`/api/products/${productId}`)

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
 const {Order} = require('../db/models')
+const {adminsOnly} = require('../api/gatekeepers')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -62,7 +63,7 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
+router.get('/me', adminsOnly, (req, res) => {
   res.json(req.user)
 })
 
