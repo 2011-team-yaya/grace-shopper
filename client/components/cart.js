@@ -11,12 +11,24 @@ export class Cart extends React.Component {
     this.props.fetchCartDb()
     this.loggedInCart = this.loggedInCart.bind(this)
     this.guestCart = this.guestCart.bind(this)
+    this.removeFromUserCart = this.removeFromUserCart.bind(this)
+    this.removeFromGuestCart = this.removeFromGuestCart.bind(this)
   }
   componentDidMount() {
     this.props.fetchProducts()
     if (this.props.user.id) {
       this.props.fetchCartDb()
     }
+  }
+  removeFromUserCart() {}
+  removeFromGuestCart(id) {
+    let cart = JSON.parse(window.localStorage.getItem('cart'))
+    console.log(cart, id)
+    cart = cart.filter(product => {
+      return product.id !== id
+    })
+    window.localStorage.setItem('cart', JSON.stringify(cart))
+    this.forceUpdate()
   }
   loggedInCart(products) {
     return (
@@ -47,6 +59,9 @@ export class Cart extends React.Component {
                       Item Total:{' '}
                       {product.price * product.order_products.quantity}
                     </p>
+                    <button type="button" id="remove">
+                      remove
+                    </button>
                   </div>
                 </li>
               )
@@ -97,6 +112,15 @@ export class Cart extends React.Component {
                       <p>Price: {product.price}</p>
                       <p>Quantity Selected: {product.quantity}</p>
                       <p>Item Total: {product.price * product.quantity}</p>
+                      <button
+                        type="button"
+                        id="remove"
+                        onClick={() => {
+                          this.removeFromGuestCart(product.id)
+                        }}
+                      >
+                        remove
+                      </button>
                     </div>
                   </li>
                 )
