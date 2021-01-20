@@ -6,8 +6,7 @@ import {logout} from '../store'
 const logo = `../images/logo.png`
 const cartLink = `../images/cart.png`
 const loginImage = `../images/account.png`
-
-const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
   <div className="container">
     <nav className="nav-bar">
       <div id="pageName">
@@ -31,6 +30,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           <span title="Cart">
             <Link to="/cart">
               <img className="navBarImages" src={cartLink} />
+
+              {cartCount
+                ? cartCount.reduce((accum, current) => {
+                    return accum + current.order_products.quantity
+                  }, 0)
+                : 0}
             </Link>
           </span>
         </div>
@@ -61,7 +66,8 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isAdmin: state.user.isAdmin
+    isAdmin: state.user.isAdmin,
+    cartCount: state.cartReducer
   }
 }
 
