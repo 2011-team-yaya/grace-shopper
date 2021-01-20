@@ -34,47 +34,61 @@ export class Cart extends React.Component {
   }
   loggedInCart(products) {
     let usrId = this.props.user.id
+
     return (
       <div id="loggedInCart">
         <div className="all">
           <h1>{this.props.user.email}'s cart</h1>
           <ul>
-            {products.map(product => {
-              let image = `../images/${product.imageURL}` || 'test'
-              let id = product.id
-
-              return (
-                <li key={id}>
-                  <div>
-                    <div className="singleCartImage">
-                      <Link to={`/products/${product.id}`} key={product.id}>
-                        <img src={image} />
-                      </Link>
-                    </div>
-                    <p>
-                      <Link to={`/products/${product.id}`} key={product.id}>
-                        {product.name}
-                      </Link>
-                    </p>
-                    <p>Price: {product.price}</p>
-                    <p>Quantity Selected: {product.order_products.quantity}</p>
-                    <p>
-                      Item Total:{' '}
-                      {product.price * product.order_products.quantity}
-                    </p>
-                    <button
-                      type="button"
-                      id="remove"
-                      onClick={() => {
-                        this.removeFromUserCart(usrId, id)
-                      }}
-                    >
-                      remove
-                    </button>
-                  </div>
-                </li>
-              )
-            })}
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>price</th>
+                  <th>qty</th>
+                  <th>
+                    line
+                    <br /> total
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              {products.map(product => {
+                let image = `../images/${product.imageURL}` || 'no image'
+                let id = product.id
+                return (
+                  <tbody key={product.name}>
+                    <tr key={product.id}>
+                      <td>
+                        <Link to={`/products/${product.id}`} key={product.id}>
+                          <img className="singleCartImage" src={image} />
+                        </Link>
+                      </td>
+                      <td>
+                        <Link to={`/products/${product.id}`} key={product.id}>
+                          {product.name}
+                        </Link>
+                      </td>
+                      <td>{product.price}</td>
+                      <td>{product.order_products.quantity}</td>
+                      <td>{product.price * product.order_products.quantity}</td>
+                      <td>
+                        <button
+                          type="button"
+                          id="remove"
+                          onClick={() => {
+                            this.removeFromUserCart(usrId, id)
+                          }}
+                        >
+                          remove
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                )
+              })}
+            </table>
           </ul>
         </div>
         <p>
@@ -101,39 +115,54 @@ export class Cart extends React.Component {
           <div className="all">
             <h1> guest cart </h1>
             <ul>
-              {cart.map(product => {
-                // console.log(product)
-                let image = `../images/${product.imageURL}`
-                return (
-                  <li key={product.id}>
-                    <div>
-                      <div className="singleCartImage">
-                        <Link to={`/products/${product.id}`} key={product.id}>
-                          <img src={image} />
-                        </Link>
-                      </div>
-
-                      <p>
-                        <Link to={`/products/${product.id}`} key={product.id}>
-                          {product.name}
-                        </Link>
-                      </p>
-                      <p>Price: {product.price}</p>
-                      <p>Quantity Selected: {product.quantity}</p>
-                      <p>Item Total: {product.price * product.quantity}</p>
-                      <button
-                        type="button"
-                        id="remove"
-                        onClick={() => {
-                          this.removeFromGuestCart(product.id)
-                        }}
-                      >
-                        remove
-                      </button>
-                    </div>
-                  </li>
-                )
-              })}
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>price</th>
+                    <th>qty</th>
+                    <th>
+                      line
+                      <br /> total
+                    </th>
+                    <th></th>
+                  </tr>
+                </thead>
+                {cart.map(product => {
+                  let image = `../images/${product.imageURL}`
+                  return (
+                    <tbody key={product.id}>
+                      <tr key="itemLine">
+                        <td>
+                          <Link to={`/products/${product.id}`} key={product.id}>
+                            <img className="singleCartImage" src={image} />
+                          </Link>
+                        </td>
+                        <td>
+                          <Link to={`/products/${product.id}`} key={product.id}>
+                            {product.name}
+                          </Link>
+                        </td>
+                        <td>{product.price}</td>
+                        <td>{product.quantity}</td>
+                        <td>{product.price * product.quantity}</td>
+                        <td>
+                          <button
+                            type="button"
+                            id="remove"
+                            onClick={() => {
+                              this.removeFromGuestCart(product.id)
+                            }}
+                          >
+                            remove
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  )
+                })}
+              </table>
             </ul>
           </div>
           <p>
@@ -156,7 +185,8 @@ export class Cart extends React.Component {
 
   render() {
     if (this.props.user.id) {
-      let products = this.props.cart || []
+      let products = this.props.cart[0] || []
+      // console.log(this.props.cart[0])
       return this.loggedInCart(products)
     } else {
       return this.guestCart()

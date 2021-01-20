@@ -36,7 +36,7 @@ form div {
   list-style: none;
   flex: 0 0 33.333333%;
 }
-.singleCartImage img {
+img.singleCartImage {
   width: 70px;
 }
 .singleProductImage img {
@@ -96,4 +96,7 @@ form div {
 
 hr {
   flex-grow: 1;
+}
+td {
+  padding: 20px;
 }
