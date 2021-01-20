@@ -156,7 +156,7 @@ export class Cart extends React.Component {
 
   render() {
     if (this.props.user.id) {
-      let products = this.props.cart.products || []
+      let products = this.props.cart || []
       return this.loggedInCart(products)
     } else {
       return this.guestCart()

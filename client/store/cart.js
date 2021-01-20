@@ -62,11 +62,11 @@ export const removeOrderProducts = (userId, productId) => {
 export default function cartReducer(cart = [], action) {
   switch (action.type) {
     case GET_CART:
-      return action.cart
+      return action.cart.products
     case ADD_ITEM_TO_CART:
-      return [...cart, action.product]
+      return [...cart.products, action.product]
     case REMOVE_FROM_CART:
-      return [...cart]
+      return [...cart.products.filter(product => product.id !== action.id)]
     default:
       return cart
   }
