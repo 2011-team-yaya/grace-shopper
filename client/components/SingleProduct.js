@@ -19,7 +19,6 @@ class SingleProduct extends Component {
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId)
-    // console.log(this.props)
   }
   addItemUser(product, userId) {
     this.props.addToOrderProducts(product, userId)
@@ -94,7 +93,7 @@ class SingleProduct extends Component {
           type="submit"
         >
           {' '}
-          Add To Cart{userId}
+          Add To Cart
         </button>
         {'  '}
         <br />
