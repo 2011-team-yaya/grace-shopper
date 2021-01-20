@@ -1,6 +1,7 @@
 body {
   font-family: Roboto Mono, monospace;
   color: rgb(170, 170, 170);
+  margin: 50px;
 }
 
 a {
@@ -25,17 +26,25 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+.all {
+  margin: auto;
+}
 
 .all ul {
   display: flex;
-  flex-wrap: wrap;
-  padding-left: 0;
+  flex-flow: row wrap;
+  /* align-content: space-around; */
+  /* flex-wrap: wrap; */
+  justify-content: flex-start;
+  /* margin: auto; */
+  /* padding-left: 0; */
 }
 
 .all li {
   list-style: none;
   flex: 0 0 33.333333%;
 }
+
 .singleCartImage img {
   width: 70px;
 }
@@ -44,7 +53,7 @@ form div {
   display: inline;
 }
 .allProductImage img {
-  width: 100px;
+  width: 140px;
 }
 .capDescription {
   max-width: 200px;
@@ -53,7 +62,8 @@ form div {
 .nav-bar {
   overflow: hidden;
   display: flex;
-  justify-content: space-around;
+  flex-flow: row wrap;
+  /* justify-content: space-around; */
   transition: transform 0.5s;
   z-index: 2;
   width: 100%;
@@ -63,19 +73,7 @@ form div {
   align-items: center;
 }
 #pageName {
-  font-family: Roboto Mono, monospace, sans-serif;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 63px;
-  width: 318px;
-  height: 63px;
-  left: 801px;
-  top: 62px;
-}
-#pageName div {
-  color: black;
-  display: inline;
+  margin: auto;
 }
 
 #singleProductBox {
@@ -85,14 +83,17 @@ form div {
 #singleProductBox p {
   display: block;
 }
+.logo {
+  width: ;
+}
 .navBarImages {
   width: 30px;
 }
 
-.container {
-  display: flex;
-  flex-flow: row wrap;
-}
+/* .container {
+  padding: 30px, 55px, 0px;
+
+} */
 
 hr {
   flex-grow: 1;
