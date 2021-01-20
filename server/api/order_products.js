@@ -15,14 +15,18 @@ router.get('/', async (req, res, next) => {
 //better route
 router.get('/:anything', async (req, res, next) => {
   try {
-    const orderProducts = await Order.findOne({
-      where: {
-        userId: req.user.id,
-        isFulfilled: false
-      },
-      include: Product
-    })
-    res.json(orderProducts)
+    if (req.user) {
+      const orderProducts = await Order.findOne({
+        where: {
+          userId: req.user.id,
+          isFulfilled: false
+        },
+        include: Product
+      })
+      res.json(orderProducts)
+    } else {
+      res.json('guest does not yet have an order in db')
+    }
   } catch (error) {
     next(error)
   }

@@ -33,7 +33,7 @@ export const addToOrderProducts = (productId, userId) => {
         `/api/order_products/${userId}/${productId}`
       )
       console.log(data, 'addToOrderProducts')
-      dispatch(addToCart(productId))
+      dispatch(addToCart(data))
     } catch (error) {
       console.log(error)
     }
