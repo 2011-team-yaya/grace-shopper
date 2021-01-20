@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchCartDb} from '../store/cart'
+import {fetchCartDb, removeOrderProducts} from '../store/cart'
 import {fetchProducts} from '../store/products'
 import Cookies from 'js-cookie'
 
@@ -20,7 +20,9 @@ export class Cart extends React.Component {
       this.props.fetchCartDb()
     }
   }
-  removeFromUserCart() {}
+  removeFromUserCart(user, product) {
+    this.props.removeOrderProducts(user, product)
+  }
   removeFromGuestCart(id) {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
     console.log(cart, id)
@@ -31,6 +33,7 @@ export class Cart extends React.Component {
     this.forceUpdate()
   }
   loggedInCart(products) {
+    let usrId = this.props.user.id
     return (
       <div id="loggedInCart">
         <div className="all">
@@ -59,7 +62,13 @@ export class Cart extends React.Component {
                       Item Total:{' '}
                       {product.price * product.order_products.quantity}
                     </p>
-                    <button type="button" id="remove">
+                    <button
+                      type="button"
+                      id="remove"
+                      onClick={() => {
+                        this.removeFromUserCart(usrId, id)
+                      }}
+                    >
                       remove
                     </button>
                   </div>
@@ -166,7 +175,9 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchCartDb: () => dispatch(fetchCartDb()),
-    fetchProducts: () => dispatch(fetchProducts())
+    fetchProducts: () => dispatch(fetchProducts()),
+    removeOrderProducts: (userId, productId) =>
+      dispatch(removeOrderProducts(userId, productId))
   }
 }
 
