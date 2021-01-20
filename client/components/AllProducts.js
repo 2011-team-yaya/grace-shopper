@@ -30,7 +30,7 @@ class AllProducts extends React.Component {
             let image = `../images/${product.imageURL}`
             return (
               <li key={product.id}>
-                <div>
+                <div className="item">
                   <div className="allProductImage">
                     <Link to={`/products/${product.id}`} key={product.id}>
                       <img src={image} />
