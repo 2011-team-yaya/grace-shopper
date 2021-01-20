@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {addToOrderProducts} from '../store/cart'
-import {fetchSingleProduct} from '../store/singleProduct'
+import {fetchSingleProduct, deleteProduct} from '../store/singleProduct'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
 import history from '../history'
@@ -10,15 +10,21 @@ class SingleProduct extends Component {
   // binding add to cart function //
   constructor(props) {
     super(props)
-
+    this.handleClick = this.handleClick.bind(this)
     this.addToCart = this.addToCart.bind(this)
-    this.deleteProduct = this.deleteProduct.bind(this)
     this.addItemUser = this.addItemUser.bind(this)
   }
   // binding add to cart function //
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId)
+  }
+  handleClick(e) {
+    if (this.props.user.id) {
+      this.addItemUser(this.props.singleProduct.id, this.props.user.id)
+    } else {
+      this.addToCart(e.target.value)
+    }
   }
   addItemUser(product, userId) {
     this.props.addToOrderProducts(product, userId)
@@ -48,71 +54,64 @@ class SingleProduct extends Component {
   }
   /*adding to cart button*/
 
-  async deleteProduct(productId) {
-    try {
-      await Axios.delete(`/api/products/${productId}`)
-      history.push('/products')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   render() {
-    const {isAdmin} = this.props.user
-    const userId = this.props.user.id
+    if (this.props.singleProduct === null) {
+      return 'error, this product no longer exists'
+    } else {
+      const {isAdmin} = this.props.user
+      const userId = this.props.user.id
 
-    const {
-      id,
-      name,
-      imageURL,
-      price,
-      quantity,
-      description
-    } = this.props.singleProduct
-
-    return (
-      <div id="singleProductBox">
-        <div className="singleProductImage">
-          <img src={`../images/${imageURL}`} />
-        </div>
-        <h1>{name || 'Item Name'}</h1>
-        <p>price: {price}</p>
-        <p className="capDescription">{description}</p>
-
-        <p>quantity available: {quantity === 0 ? 'Out of Stock' : quantity}</p>
-        {/*adding to cart button*/}
-        <button
-          value={JSON.stringify(this.props.singleProduct)}
-          onClick={
-            this.props.user.id
-              ? this.addItemUser(id, userId)
-              : e => {
-                  this.addToCart(e.target.value)
-                }
-          }
-          type="submit"
-        >
-          {' '}
-          Add To Cart
-        </button>
-        {'  '}
-        <br />
-        <br />
-        {/*adding to cart button*/}
-
-        {//renders Edit and Delete buttons if user is Admin
-        isAdmin && (
-          <div>
-            <Link to={`/editproduct/${id}`}>
-              <button>Edit</button>
-            </Link>
-            <br />
-            <br />
-            <button onClick={() => this.deleteProduct(id)}>Delete Item</button>
+      const {
+        id,
+        name,
+        imageURL,
+        price,
+        quantity,
+        description
+      } = this.props.singleProduct
+      return (
+        <div id="singleProductBox">
+          <div className="singleProductImage">
+            <img src={`../images/${imageURL}`} />
           </div>
-        )}
-      </div>
-    )
+          <h1>{name || 'Item Name'}</h1>
+          <p>price: {price}</p>
+          <p className="capDescription">{description}</p>
+
+          <p>
+            quantity available: {quantity === 0 ? 'Out of Stock' : quantity}
+          </p>
+          {/*adding to cart button*/}
+          <button
+            value={JSON.stringify(this.props.singleProduct)}
+            onClick={this.handleClick}
+            type="submit"
+          >
+            Add To Cart
+          </button>
+          <br />
+          <br />
+          {/*adding to cart button*/}
+
+          {//renders Edit and Delete buttons if user is Admin
+          isAdmin && (
+            <div>
+              <Link to={`/editproduct/${id}`}>
+                <button type="submit">Edit</button>
+              </Link>
+              <br />
+              <br />
+              <button
+                type="button"
+                onClick={() => this.props.deleteProduct(id)}
+              >
+                Delete Item
+              </button>
+            </div>
+          )}
+        </div>
+      )
+    }
   }
 }
 
@@ -127,7 +126,8 @@ const mapDispatch = dispatch => {
   return {
     fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
     addToOrderProducts: (productId, userId) =>
-      dispatch(addToOrderProducts(productId, userId))
+      dispatch(addToOrderProducts(productId, userId)),
+    deleteProduct: productId => dispatch(deleteProduct(productId))
   }
 }
 
