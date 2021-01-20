@@ -27,17 +27,12 @@ form div {
   display: inline-block;
 }
 .all {
-  margin: auto;
+  padding: 25px 50px 75px 200px;
 }
 
 .all ul {
   display: flex;
   flex-flow: row wrap;
-  /* align-content: space-around; */
-  /* flex-wrap: wrap; */
-  justify-content: flex-start;
-  /* margin: auto; */
-  /* padding-left: 0; */
 }
 
 .all li {
@@ -45,25 +40,51 @@ form div {
   flex: 0 0 33.333333%;
 }
 
+.allProductImage img {
+  width: 140px;
+}
+
+.item {
+  padding: 5px;
+}
+
+#singleProductBox {
+  padding: 100px 50px 75px 200px;
+  display: flex;
+  flex-flow: row-wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+}
+
+.singleProductDetails p {
+  display: block;
+  text-align: justify;
+  max-width: 500px;
+}
+
 .singleCartImage img {
   width: 70px;
 }
 .singleProductImage img {
-  width: 200px;
+  width: 400px;
   display: inline;
 }
-.allProductImage img {
-  width: 140px;
-}
+
 .capDescription {
   max-width: 200px;
+}
+
+#singleProductBox button {
+  width: 150px;
+  padding: 10px;
 }
 
 .nav-bar {
   overflow: hidden;
   display: flex;
   flex-flow: row wrap;
-  /* justify-content: space-around; */
+  justify-content: center;
   transition: transform 0.5s;
   z-index: 2;
   width: 100%;
@@ -76,25 +97,34 @@ form div {
   margin: auto;
 }
 
-#singleProductBox {
-  margin-left: 30vw;
-  width: 50vw;
-}
-#singleProductBox p {
-  display: block;
-}
-.logo {
-  width: ;
-}
 .navBarImages {
   width: 30px;
+  align-self: flex-end;
 }
-
-/* .container {
-  padding: 30px, 55px, 0px;
-
-} */
 
 hr {
   flex-grow: 1;
+}
+
+button {
+  background: #000000;
+  border-radius: 8px;
+  max-width: 300px;
+  min-width: 100px;
+  height: 40px;
+  color: #ffffff;
+  border: none;
+  margin: 5px;
+}
+
+#remove {
+  background: #aaaaaa;
+}
+
+#remove:hover {
+  background: #292727;
+}
+
+button:hover {
+  background: #292727;
 }

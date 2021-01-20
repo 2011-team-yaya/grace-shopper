@@ -30,12 +30,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
           <span title="Cart">
             <Link to="/cart">
               <img className="navBarImages" src={cartLink} />
-
-              {cartCount
-                ? cartCount.reduce((accum, current) => {
-                    return accum + current.order_products.quantity
-                  }, 0)
-                : 0}
             </Link>
           </span>
         </div>

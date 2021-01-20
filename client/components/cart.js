@@ -147,9 +147,13 @@ export class Cart extends React.Component {
               }, 0)}
           </p>
           <a href="/login/">
-            <button type="submit">Please Log-In before Checkout</button>
+            <button className="checkoutButton" type="submit">
+              Log-In to Checkout
+            </button>
           </a>
-          <button type="submit">Checkout as a Guest</button>
+          <button className="checkoutButton" type="submit">
+            Guest Checkout
+          </button>
         </div>
       )
   }
