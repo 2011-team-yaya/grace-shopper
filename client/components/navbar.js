@@ -3,18 +3,22 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+const logo = `../images/logo.png`
 const cartLink = `../images/cart.png`
 const loginImage = `../images/account.png`
 const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
   <div className="container">
     <nav className="nav-bar">
-      <h1 id="pageName">
-        <div>[ ALL</div>CAPS ]
-      </h1>
+      <div id="pageName">
+        <span title="Logo">
+          <Link to="/products">
+            <img className="logo" src={logo} />
+          </Link>
+        </span>
+      </div>
       {isLoggedIn ? (
-        <div>
+        <div className="icons">
           {/* The navbar will show these links after you log in */}
-          <Link to="/products">Shop</Link>
           <Link to="/home">Home</Link>
 
           {isAdmin && <Link to="/adminhome">Admin</Link>}
@@ -26,20 +30,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
           <span title="Cart">
             <Link to="/cart">
               <img className="navBarImages" src={cartLink} />
-
-              {cartCount
-                ? cartCount.reduce((accum, current) => {
-                    return accum + current.order_products.quantity
-                  }, 0)
-                : 0}
             </Link>
           </span>
         </div>
       ) : (
-        <div>
+        <div className="icons">
           {/* The navbar will show these links before you log in */}
-          <Link to="/products">Shop</Link>
-          <Link to="/signup">Sign Up</Link>
 
           <span title="Login">
             <Link to="/login">
@@ -54,7 +50,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
         </div>
       )}
     </nav>
-    <hr />
+    {/* <hr /> */}
   </div>
 )
 

@@ -24,6 +24,7 @@ class SingleProduct extends Component {
       this.addItemUser(this.props.singleProduct.id, this.props.user.id)
     } else {
       this.addToCart(e.target.value)
+      alert(`Item added to cart!`)
     }
   }
   addItemUser(product, userId) {
@@ -74,21 +75,20 @@ class SingleProduct extends Component {
           <div className="singleProductImage">
             <img src={`../images/${imageURL}`} />
           </div>
-          <h1>{name || 'Item Name'}</h1>
-          <p>price: {price}</p>
-          <p className="capDescription">{description}</p>
+          <div className="singleProductDetails">
+            <h1>{name || 'Item Name'}</h1>
+            <p>price: {price}</p>
+            <p className="capDescription">{description}</p>
 
-          <p>
-            quantity available: {quantity === 0 ? 'Out of Stock' : quantity}
-          </p>
-          {/*adding to cart button*/}
-          <button
-            value={JSON.stringify(this.props.singleProduct)}
-            onClick={this.handleClick}
-            type="submit"
-          >
-            Add To Cart
-          </button>
+            {/*adding to cart button*/}
+            <button
+              value={JSON.stringify(this.props.singleProduct)}
+              onClick={this.handleClick}
+              type="submit"
+            >
+              ADD TO CART
+            </button>
+          </div>
           <br />
           <br />
           {/*adding to cart button*/}
