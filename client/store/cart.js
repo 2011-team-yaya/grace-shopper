@@ -66,7 +66,7 @@ export default function cartReducer(cart = [], action) {
     case ADD_ITEM_TO_CART:
       return [...cart.products, action.product]
     case REMOVE_FROM_CART:
-      return [...cart.products.filter(product => product.id !== action.id)]
+      return [...cart.filter(product => product.id !== action.id)]
     default:
       return cart
   }

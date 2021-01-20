@@ -27,11 +27,11 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
             <Link to="/cart">
               <img className="navBarImages" src={cartLink} />
 
-              {/* {cartCount
+              {cartCount
                 ? cartCount.reduce((accum, current) => {
                     return accum + current.order_products.quantity
                   }, 0)
-                : 0} */}
+                : 0}
             </Link>
           </span>
         </div>
@@ -65,7 +65,7 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
     isAdmin: state.user.isAdmin,
-    cartCount: state.cartReducer.products
+    cartCount: state.cartReducer
   }
 }
 
