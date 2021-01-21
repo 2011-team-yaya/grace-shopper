@@ -31,6 +31,31 @@ router.get('/:anything', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post(`/user/Purchase`, async (req, res, next) => {
+  try {
+    let unfullfilledOrder = await Order.findOne({
+      where: {
+        isFulfilled: false,
+        userId: req.user.id
+      }
+    })
+    await unfullfilledOrder.update({isFulfilled: true})
+    let newUserOrder = await Order.create()
+    await newUserOrder.setUser(req.user.id)
+    const orderProducts = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        isFulfilled: false
+      },
+      include: Product
+    })
+    res.json(orderProducts)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/:orderId', async (req, res, next) => {
   try {
     const orderProduct = await Order_Products.create(req.body)

@@ -4,6 +4,9 @@ const Sequelize = require('sequelize')
 // const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
 if (process.env.NODE_ENV !== 'production') require('../../secrets')
 
+//process.env.DATABASE_URL
+if (process.env.NODE_ENV !== 'production') require('../../secrets')
+
 const db = new Sequelize(process.env.DATABASE_URL, {
   logging: false
 })

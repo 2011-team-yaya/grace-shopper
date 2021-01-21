@@ -11,7 +11,8 @@ import {
   Cart,
   AdminHome,
   EditProduct,
-  AddProduct
+  AddProduct,
+  CheckOut
 } from './components'
 import SingleProduct from './components/SingleProduct'
 import {me} from './store'
@@ -30,6 +31,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route path="/checkout" component={CheckOut} />
         <Route path="/cart" component={Cart} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />

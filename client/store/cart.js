@@ -99,6 +99,17 @@ export const decrementCart = (userId, productId) => {
   }
 }
 
+export const userPurchase = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post(`/api/order_products/user/Purchase`)
+      dispatch(getCart(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export default function cartReducer(cart = [], action) {
   switch (action.type) {
     case GET_CART:
