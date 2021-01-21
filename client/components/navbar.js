@@ -6,7 +6,7 @@ import {logout} from '../store'
 const logo = `../images/logo.png`
 const cartLink = `../images/cart.png`
 const loginImage = `../images/account.png`
-const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div className="container">
     <nav className="nav-bar">
       <div id="pageName">
@@ -19,7 +19,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cartCount}) => (
       {isLoggedIn ? (
         <div className="icons">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <Link to="/home">Account</Link>
 
           {isAdmin && <Link to="/adminhome">Admin</Link>}
           <span title="Logout">

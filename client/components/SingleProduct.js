@@ -24,7 +24,9 @@ class SingleProduct extends Component {
       this.addItemUser(this.props.singleProduct.id, this.props.user.id)
     } else {
       this.addToCart(e.target.value)
+      alert(`Item added to cart!`)
     }
+    document.getElementById('added').innerHTML = 'Added!'
   }
   addItemUser(product, userId) {
     this.props.addToOrderProducts(product, userId)
@@ -87,6 +89,7 @@ class SingleProduct extends Component {
             >
               ADD TO CART
             </button>
+            <p id="added"></p>
           </div>
           <br />
           <br />
@@ -95,7 +98,6 @@ class SingleProduct extends Component {
           {//renders Edit and Delete buttons if user is Admin
           isAdmin && (
             <div>
-              <h4>Admin Inventory</h4>
               <Link to={`/editproduct/${id}`}>
                 <button type="submit">Edit</button>
               </Link>

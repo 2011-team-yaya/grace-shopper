@@ -15,7 +15,8 @@ import {
   AllUsers,
   SingleUser,
   AddUser,
-  EditUser
+  EditUser,
+  CheckOut
 } from './components'
 import SingleProduct from './components/SingleProduct'
 import {me} from './store'
@@ -34,6 +35,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route path="/checkout" component={CheckOut} />
         <Route path="/cart" component={Cart} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
@@ -54,8 +56,6 @@ class Routes extends Component {
             <Route path="/addproduct" component={AddProduct} />
             <Route exact path="/users" component={AllUsers} />
             <Route exact path="/users/:userId" component={SingleUser} />
-            <Route path="/adduser" component={AddUser} />
-            <Route exact path="/edituser/:userId" component={EditUser} />
           </Switch>
         )}
 

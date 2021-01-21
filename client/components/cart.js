@@ -1,7 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchCartDb, removeOrderProducts} from '../store/cart'
+import {
+  decrementCart,
+  fetchCartDb,
+  incrementCart,
+  userPurchase,
+  removeOrderProducts
+} from '../store/cart'
+
 import {fetchProducts} from '../store/products'
 import Cookies from 'js-cookie'
 
@@ -13,6 +20,9 @@ export class Cart extends React.Component {
     this.guestCart = this.guestCart.bind(this)
     this.removeFromUserCart = this.removeFromUserCart.bind(this)
     this.removeFromGuestCart = this.removeFromGuestCart.bind(this)
+    this.userPurchase = this.userPurchase.bind(this)
+
+    this.guestPurchase = this.guestPurchase.bind(this)
   }
   componentDidMount() {
     this.props.fetchProducts()
@@ -32,8 +42,25 @@ export class Cart extends React.Component {
     window.localStorage.setItem('cart', JSON.stringify(cart))
     this.forceUpdate()
   }
+
+  userPurchase() {
+    this.props.userPurchase()
+  }
+
+  guestPurchase() {
+    window.localStorage.removeItem('cart')
+  }
+
   loggedInCart(products) {
+    let disable = products.length === 0
     let usrId = this.props.user.id
+    let total = products
+      .map(i => {
+        return i.price * i.order_products.quantity
+      })
+      .reduce((current, accum) => {
+        return accum + current
+      }, 0)
     return (
       <div id="loggedInCart">
         <div className="all">
@@ -64,6 +91,15 @@ export class Cart extends React.Component {
                     </p>
                     <button
                       type="button"
+                      id="quan"
+                      onClick={() => {
+                        this.props.decreaseQty(usrId, id)
+                      }}
+                    >
+                      --
+                    </button>
+                    <button
+                      type="button"
                       id="remove"
                       onClick={() => {
                         this.removeFromUserCart(usrId, id)
@@ -71,23 +107,34 @@ export class Cart extends React.Component {
                     >
                       remove
                     </button>
+                    <button
+                      type="button"
+                      id="quan"
+                      onClick={() => {
+                        this.props.increaseQty(usrId, id)
+                      }}
+                    >
+                      ++
+                    </button>
                   </div>
                 </li>
               )
             })}
           </ul>
         </div>
-        <p>
-          Order Total: $
-          {products
-            .map(i => {
-              return i.price * i.order_products.quantity
-            })
-            .reduce((current, accum) => {
-              return accum + current
-            }, 0)}
-        </p>
-        <button type="submit">Go to Checkout</button>
+        <p>Order Total: $ {total}</p>
+        <Link
+          to={{
+            pathname: '/checkout',
+            state: {
+              total
+            }
+          }}
+        >
+          <button type="submit" onClick={this.userPurchase} disabled={disable}>
+            Go to Checkout
+          </button>
+        </Link>
       </div>
     )
   }
@@ -95,7 +142,14 @@ export class Cart extends React.Component {
   guestCart() {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
     if (!cart) return <div> your cart is currently empty </div>
-    else
+    else {
+      let total = cart
+        .map(i => {
+          return i.price * i.quantity
+        })
+        .reduce((current, accum) => {
+          return accum + current
+        }, 0)
       return (
         <div id="guestCart">
           <div className="all">
@@ -136,26 +190,31 @@ export class Cart extends React.Component {
               })}
             </ul>
           </div>
-          <p>
-            Order Total: $
-            {cart
-              .map(i => {
-                return i.price * i.quantity
-              })
-              .reduce((current, accum) => {
-                return accum + current
-              }, 0)}
-          </p>
+          <p>Order Total: $ {total}</p>
           <a href="/login/">
             <button className="checkoutButton" type="submit">
               Log-In to Checkout
             </button>
           </a>
-          <button className="checkoutButton" type="submit">
-            Guest Checkout
-          </button>
+          <Link
+            to={{
+              pathname: '/checkout',
+              state: {
+                total
+              }
+            }}
+          >
+            <button
+              className="checkoutButton"
+              type="submit"
+              onClick={this.guestPurchase}
+            >
+              Guest Checkout
+            </button>
+          </Link>
         </div>
       )
+    }
   }
 
   render() {
@@ -178,10 +237,13 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    increaseQty: (user, product) => dispatch(incrementCart(user, product)),
+    decreaseQty: (user, product) => dispatch(decrementCart(user, product)),
     fetchCartDb: () => dispatch(fetchCartDb()),
     fetchProducts: () => dispatch(fetchProducts()),
     removeProduct: (userId, productId) =>
-      dispatch(removeOrderProducts(userId, productId))
+      dispatch(removeOrderProducts(userId, productId)),
+    userPurchase: () => dispatch(userPurchase())
   }
 }
 

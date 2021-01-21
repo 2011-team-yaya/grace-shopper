@@ -53,7 +53,7 @@ form div {
   display: flex;
   flex-flow: row-wrap;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
   align-content: center;
 }
 
@@ -61,6 +61,7 @@ form div {
   display: block;
   text-align: justify;
   max-width: 500px;
+  min-width: 500px;
 }
 
 .singleCartImage img {
@@ -118,7 +119,7 @@ button {
 }
 
 #remove {
-  background: #aaaaaa;
+  background: #a19797;
 }
 
 #remove:hover {

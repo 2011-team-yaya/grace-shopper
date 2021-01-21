@@ -15,7 +15,7 @@ class AllUsers extends React.Component {
       <div className="all">
         <br />
 
-        <Link to="/adduser">
+        <Link to="/users">
           <button>Add New User</button>
         </Link>
         <br />
@@ -34,11 +34,6 @@ class AllUsers extends React.Component {
                   </p>
                   <p>Email: {user.email}</p>
                   <p>User is Admin: {user.isAdmin ? 'Yes' : 'No'}</p>
-                  <p>
-                    <Link to="/edituser/:userId">
-                      <button>Edit</button>
-                    </Link>
-                  </p>
                 </div>
               </li>
             )

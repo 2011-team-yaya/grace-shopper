@@ -29,11 +29,6 @@ export const AdminHome = props => {
       <Link to="/users">
         <button>Users List</button>
       </Link>
-      <br />
-      <br />
-      <Link to="/adduser">
-        <button>Create New User</button>
-      </Link>
     </div>
   )
 }

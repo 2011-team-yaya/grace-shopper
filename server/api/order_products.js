@@ -31,6 +31,31 @@ router.get('/:anything', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post(`/user/Purchase`, async (req, res, next) => {
+  try {
+    let unfullfilledOrder = await Order.findOne({
+      where: {
+        isFulfilled: false,
+        userId: req.user.id
+      }
+    })
+    await unfullfilledOrder.update({isFulfilled: true})
+    let newUserOrder = await Order.create()
+    await newUserOrder.setUser(req.user.id)
+    const orderProducts = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        isFulfilled: false
+      },
+      include: Product
+    })
+    res.json(orderProducts)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/:orderId', async (req, res, next) => {
   try {
     const orderProduct = await Order_Products.create(req.body)
@@ -51,6 +76,46 @@ router.delete('/:orderId', async (req, res, next) => {
     res.status(204).end()
   } catch (error) {
     next(error)
+  }
+})
+router.put('/increment/:userId/:productId', async (req, res, next) => {
+  try {
+    let order = await Order.findOne({
+      where: {
+        isFulfilled: false,
+        userId: req.params.userId
+      }
+    })
+    let productInOrder = await Order_Products.findOne({
+      where: {
+        productId: req.params.productId,
+        orderId: order.id
+      }
+    })
+    let newProduct = await productInOrder.increment('quantity')
+    res.json(newProduct)
+  } catch (error) {
+    console.log(error)
+  }
+})
+router.put('/decrement/:userId/:productId', async (req, res, next) => {
+  try {
+    let order = await Order.findOne({
+      where: {
+        isFulfilled: false,
+        userId: req.params.userId
+      }
+    })
+    let productInOrder = await Order_Products.findOne({
+      where: {
+        productId: req.params.productId,
+        orderId: order.id
+      }
+    })
+    let newProduct = await productInOrder.decrement('quantity')
+    res.send(newProduct)
+  } catch (error) {
+    console.log(error)
   }
 })
 
