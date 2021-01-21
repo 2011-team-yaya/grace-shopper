@@ -4,7 +4,8 @@ const Sequelize = require('sequelize')
 // const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
 if (process.env.NODE_ENV !== 'production') require('../../secrets')
 
-const db = new Sequelize(process.env.DATABASE_URL, {
+//process.env.DATABASE_URL
+const db = new Sequelize(`postgres://hectore914:Repecadre914@localhost:5432/grace_shopper`, {
   logging: false
 })
 module.exports = db
