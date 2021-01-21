@@ -79,7 +79,6 @@ export const incrementCart = (userId, productId) => {
       const {data} = await axios.put(
         `api/order_products/increment/${userId}/${productId}`
       )
-      console.log(data, 'RESULT OF ++')
       dispatch(increase(data))
     } catch (error) {
       console.error(error)
