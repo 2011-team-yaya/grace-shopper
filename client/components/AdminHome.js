@@ -12,6 +12,8 @@ export const AdminHome = props => {
   return (
     <div>
       <h3>Welcome Admin {name}</h3>
+      <h1>Products</h1>
+      <br />
       <Link to="/products">
         <button>Edit Products</button>
       </Link>
@@ -19,6 +21,18 @@ export const AdminHome = props => {
       <br />
       <Link to="/addproduct">
         <button>Add New Product</button>
+      </Link>
+      <br />
+      <br />
+      <h1>Users</h1>
+      <br />
+      <Link to="/users">
+        <button>Users List</button>
+      </Link>
+      <br />
+      <br />
+      <Link to="/adduser">
+        <button>Create New User</button>
       </Link>
     </div>
   )

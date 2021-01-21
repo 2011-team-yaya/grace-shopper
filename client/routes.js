@@ -12,7 +12,11 @@ import {
   AdminHome,
   EditProduct,
   AddProduct,
-  CheckOut
+  CheckOut,
+  AllUsers,
+  SingleUser,
+  AddUser,
+  EditUser
 } from './components'
 import SingleProduct from './components/SingleProduct'
 import {me} from './store'
@@ -50,6 +54,10 @@ class Routes extends Component {
               component={EditProduct}
             />
             <Route path="/addproduct" component={AddProduct} />
+            <Route exact path="/users" component={AllUsers} />
+            <Route exact path="/users/:userId" component={SingleUser} />
+            <Route exact path="/adduser" component={AddUser} />
+            <Route exact path="/edituser/:userId" component={EditUser} />
           </Switch>
         )}
 
