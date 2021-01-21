@@ -11,8 +11,8 @@ import {
   Cart,
   AdminHome,
   EditProduct,
-  AddProduct , 
-  CheckOut  
+  AddProduct,
+  CheckOut
 } from './components'
 import SingleProduct from './components/SingleProduct'
 import {me} from './store'
