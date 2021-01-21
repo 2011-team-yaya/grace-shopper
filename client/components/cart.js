@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchCartDb, removeOrderProducts} from '../store/cart'
+import {
+  decrementCart,
+  fetchCartDb,
+  incrementCart,
+  removeOrderProducts
+} from '../store/cart'
 import {fetchProducts} from '../store/products'
 import Cookies from 'js-cookie'
 
@@ -64,12 +69,30 @@ export class Cart extends React.Component {
                     </p>
                     <button
                       type="button"
+                      id="quan"
+                      onClick={() => {
+                        this.props.decreaseQty(usrId, id)
+                      }}
+                    >
+                      --
+                    </button>
+                    <button
+                      type="button"
                       id="remove"
                       onClick={() => {
                         this.removeFromUserCart(usrId, id)
                       }}
                     >
                       remove
+                    </button>
+                    <button
+                      type="button"
+                      id="quan"
+                      onClick={() => {
+                        this.props.increaseQty(usrId, id)
+                      }}
+                    >
+                      ++
                     </button>
                   </div>
                 </li>
@@ -178,6 +201,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    increaseQty: (user, product) => dispatch(incrementCart(user, product)),
+    decreaseQty: (user, product) => dispatch(decrementCart(user, product)),
     fetchCartDb: () => dispatch(fetchCartDb()),
     fetchProducts: () => dispatch(fetchProducts()),
     removeProduct: (userId, productId) =>

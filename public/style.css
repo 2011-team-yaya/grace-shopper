@@ -118,7 +118,7 @@ button {
 }
 
 #remove {
-  background: #aaaaaa;
+  background: #a19797;
 }
 
 #remove:hover {
@@ -127,4 +127,15 @@ button {
 
 button:hover {
   background: #292727;
+}
+
+#quan {
+  background: #a19797;
+  border-radius: 8px;
+  max-width: 50px;
+  min-width: 50px;
+  height: 40px;
+  color: #ffffff;
+  border: none;
+  margin: 5px;
 }

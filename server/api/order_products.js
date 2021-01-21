@@ -53,6 +53,46 @@ router.delete('/:orderId', async (req, res, next) => {
     next(error)
   }
 })
+router.put('/increment/:userId/:productId', async (req, res, next) => {
+  try {
+    let order = await Order.findOne({
+      where: {
+        isFulfilled: false,
+        userId: req.params.userId
+      }
+    })
+    let productInOrder = await Order_Products.findOne({
+      where: {
+        productId: req.params.productId,
+        orderId: order.id
+      }
+    })
+    let newProduct = await productInOrder.increment('quantity')
+    res.json(newProduct)
+  } catch (error) {
+    console.log(error)
+  }
+})
+router.put('/decrement/:userId/:productId', async (req, res, next) => {
+  try {
+    let order = await Order.findOne({
+      where: {
+        isFulfilled: false,
+        userId: req.params.userId
+      }
+    })
+    let productInOrder = await Order_Products.findOne({
+      where: {
+        productId: req.params.productId,
+        orderId: order.id
+      }
+    })
+    let newProduct = await productInOrder.decrement('quantity')
+    res.send(newProduct)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 router.put('/deleteFromCart/:userId/:productId', async (req, res, next) => {
   try {
