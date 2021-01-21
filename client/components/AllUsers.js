@@ -15,7 +15,7 @@ class AllUsers extends React.Component {
       <div className="all">
         <br />
 
-        <Link to="/users">
+        <Link to="/adduser">
           <button>Add New User</button>
         </Link>
         <br />
@@ -25,11 +25,11 @@ class AllUsers extends React.Component {
         <ul>
           {users.map(user => {
             return (
-              <li key={user.id}>
+              <li key={user.id} className="allusers">
                 <div>
                   <p>
                     <Link to={`/users/${user.id}`} key={user.id}>
-                      Name: {user.name}
+                      <h3>Name: {user.name}</h3>
                     </Link>
                   </p>
                   <p>Email: {user.email}</p>

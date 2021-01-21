@@ -33,15 +33,14 @@ router.post('/', adminsOnly, async (req, res, next) => {
 
     const password = req.body.password === '' ? undefined : req.body.password
 
-    const googleId = req.body.googleId === '' ? undefined : req.body.googleId
-
     const isAdmin = req.body.isAdmin === '' ? undefined : req.body.isAdmin
 
     const newUser = await User.create({
       name: req.body.name,
       email: email,
       password: password,
-      googleId: googleId,
+      salt: undefined,
+      googleId: undefined,
       isAdmin: isAdmin
     })
     res.json(newUser)

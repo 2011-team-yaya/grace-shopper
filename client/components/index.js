@@ -17,3 +17,6 @@ export {default as CheckOut} from './CheckOut'
 
 export {default as AllUsers} from './AllUsers'
 export {default as SingleUser} from './SingleUser'
+export {default as UserForm} from './UserForm'
+export {default as AddUser} from './AddUser'
+export {default as EditUser} from './EditUser'

@@ -97,6 +97,7 @@ class SingleProduct extends Component {
           {//renders Edit and Delete buttons if user is Admin
           isAdmin && (
             <div>
+              <h4>Admin Inventory Tools</h4>
               <Link to={`/editproduct/${id}`}>
                 <button type="submit">Edit</button>
               </Link>
