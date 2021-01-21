@@ -41,6 +41,7 @@ router.post('/', adminsOnly, async (req, res, next) => {
       name: req.body.name,
       email: email,
       password: password,
+      salt: undefined,
       googleId: googleId,
       isAdmin: isAdmin
     })

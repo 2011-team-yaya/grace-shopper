@@ -1,5 +1,6 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
+const {get} = require('../../api/order_products')
 const db = require('../db')
 
 const User = db.define('user', {

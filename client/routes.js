@@ -13,7 +13,9 @@ import {
   EditProduct,
   AddProduct,
   AllUsers,
-  SingleUser
+  SingleUser,
+  AddUser,
+  EditUser
 } from './components'
 import SingleProduct from './components/SingleProduct'
 import {me} from './store'
@@ -52,6 +54,8 @@ class Routes extends Component {
             <Route path="/addproduct" component={AddProduct} />
             <Route exact path="/users" component={AllUsers} />
             <Route exact path="/users/:userId" component={SingleUser} />
+            <Route path="/adduser" component={AddUser} />
+            <Route exact path="/edituser/:userId" component={EditUser} />
           </Switch>
         )}
 
