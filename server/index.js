@@ -67,7 +67,7 @@ const createApp = () => {
 
   //for debugging purposes only
   app.use((req, res, next) => {
-    console.log('SESSION --> ', req.session)
+    // console.log('SESSION --> ', req.session)
     next()
   })
 

@@ -10,12 +10,11 @@ import {
 } from '../store/cart'
 
 import {fetchProducts} from '../store/products'
-import Cookies from 'js-cookie'
 
 export class Cart extends React.Component {
   constructor(props) {
     super(props)
-    this.props.fetchCartDb()
+    // this.props.fetchCartDb()
     this.loggedInCart = this.loggedInCart.bind(this)
     this.guestCart = this.guestCart.bind(this)
     this.removeFromUserCart = this.removeFromUserCart.bind(this)
@@ -35,7 +34,7 @@ export class Cart extends React.Component {
   }
   removeFromGuestCart(id) {
     let cart = JSON.parse(window.localStorage.getItem('cart'))
-    console.log(cart, id)
+
     cart = cart.filter(product => {
       return product.id !== id
     })
@@ -93,7 +92,9 @@ export class Cart extends React.Component {
                       type="button"
                       id="quan"
                       onClick={() => {
-                        this.props.decreaseQty(usrId, id)
+                        if (product.order_products.quantity >= 1) {
+                          this.props.decreaseQty(usrId, id)
+                        }
                       }}
                     >
                       --
