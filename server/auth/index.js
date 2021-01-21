@@ -41,7 +41,6 @@ router.post('/signup', async (req, res, next) => {
     })
 
     let newOrder = await Order.create()
-    // console.log(req.session)
     await newOrder.setUser(user)
 
     // res.cookie('orderId', req.session.orderId, {signed: true, httpOnly: true})
