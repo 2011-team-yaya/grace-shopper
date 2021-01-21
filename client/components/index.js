@@ -14,3 +14,6 @@ export {default as AdminHome} from './AdminHome'
 export {default as EditProduct} from './EditProduct'
 export {default as AddProduct} from './AddProduct'
 export {default as CheckOut} from './CheckOut'
+
+export {default as AllUsers} from './AllUsers'
+export {default as SingleUser} from './SingleUser'
