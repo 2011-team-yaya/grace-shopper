@@ -1,4 +1,4 @@
-# Grace Shopper Ayuna Test
+# Grace Shopper 
 
 _Good things come in pairs_
 
